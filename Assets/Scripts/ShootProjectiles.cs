@@ -9,6 +9,8 @@ public class ShootProjectiles : MonoBehaviour
     private Camera cam;
     private Vector3 destination;
     private float distanceOfRay = 1000f;
+    private float fireRate = 4f;
+    private float timeToFire;
 
     private void Start()
     {
@@ -20,6 +22,7 @@ public class ShootProjectiles : MonoBehaviour
     {
         if (inputManager.PlayerShootedThisFrame())
         {
+            timeToFire = Time.time + 1 / fireRate;
             ShootProjectile();
         }
     }
