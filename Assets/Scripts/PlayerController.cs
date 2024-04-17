@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float playerSpeed = 2.0f;
+    [SerializeField] private float jumpHeight = 1.0f;
+    [SerializeField] private float gravityValue = -9.81f;
     private InputManager inputManager;
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    [SerializeField] private float playerSpeed = 2.0f;
-    [SerializeField] private float jumpHeight = 1.0f;
-    [SerializeField] private float gravityValue = -9.81f;
+    private Transform cameraTransform;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         inputManager = InputManager.Instance;
+        cameraTransform = Camera.main.transform;
     }
 
     void Update()
@@ -24,15 +26,20 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y = 0f;
         }
 
+        // moves the player
         Vector2 movement = inputManager.GetPlayerMovement();
         Vector3 move = new Vector3(movement.x, 0f, movement.y);
+
+        // moves camera and player together
+        move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
+        move.y = 0f;
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         // Rotates the player
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
+        // if (move != Vector3.zero)
+        // {
+        //     gameObject.transform.forward = move;
+        // }
 
         // Changes the height position of the player
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
