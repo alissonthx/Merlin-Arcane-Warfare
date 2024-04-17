@@ -35,11 +35,8 @@ public class PlayerController : MonoBehaviour
         move.y = 0f;
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        // Rotates the player
-        // if (move != Vector3.zero)
-        // {
-        //     gameObject.transform.forward = move;
-        // }
+        // Rotate the player to match the camera's rotation
+        transform.rotation = Quaternion.Euler(cameraTransform.eulerAngles.x, cameraTransform.eulerAngles.y, 0);
 
         // Changes the height position of the player
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
