@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
-    [SerializeField] private float gravityValue = -9.81f;
+    [SerializeField] private float gravityValue = -19.81f;
     private InputManager inputManager;
     private CharacterController controller;
     private Vector3 playerVelocity;
