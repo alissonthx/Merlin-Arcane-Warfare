@@ -1,7 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
+    // private NetworkVariable<int> randomNumber = new NetworkVariable<int>(1);
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -19.81f;
@@ -20,6 +22,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Verifies if the input sender is the owner.
+        if (IsOwner) return;
+
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {

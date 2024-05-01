@@ -1554,7 +1554,7 @@ MonoBehaviour:
   m_MaxConnectAttempts: 60
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
-    Address: 127.0.0.1
+    Address: 192.168.1.5
     Port: 7777
     ServerListenAddress: 127.0.0.1
   DebugSimulator:
@@ -1761,7 +1761,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809891849}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
   m_Name: 
@@ -2027,6 +2027,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.801471
+      objectReference: {fileID: 0}
+    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 2813643982275014241, guid: 8167c67906dab2b4190901e3597aca6a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2076,6 +2101,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6290359524997813415, guid: 8167c67906dab2b4190901e3597aca6a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.217
+      objectReference: {fileID: 0}
+    - target: {fileID: 6290359524997813415, guid: 8167c67906dab2b4190901e3597aca6a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.192
       objectReference: {fileID: 0}
     - target: {fileID: 6652553209859045263, guid: 8167c67906dab2b4190901e3597aca6a,
         type: 3}
