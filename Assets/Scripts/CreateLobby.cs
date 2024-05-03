@@ -9,7 +9,7 @@ public class CreateLobby : MonoBehaviour
         create.onClick.AddListener(() =>
        {
            LobbyManager.Instance.CreateLobby();
-           TestRelay.Instance.CreateRelay();
+           _ = LobbyManager.Instance.StartHostWithRelay();
        });
     }
 }

@@ -15,16 +15,16 @@ public class TestRelay : MonoBehaviour
     {
         Instance = this;
     }
-    private async void Start()
+    private void Start()
     {
-        await UnityServices.InitializeAsync();
+        // await UnityServices.InitializeAsync();
 
-        AuthenticationService.Instance.SignedIn += () =>
-        {
-            print("Signed in " + AuthenticationService.Instance.PlayerId);
-        };
+        // AuthenticationService.Instance.SignedIn += () =>
+        // {
+        //     print("Signed in " + AuthenticationService.Instance.PlayerId);
+        // };
 
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        // await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
     public async void CreateRelay()

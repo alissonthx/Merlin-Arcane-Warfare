@@ -123,6 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &118665801 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 567703664137350135, guid: e5cb737db51c65e4788d36c27b1366c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 2075860688}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &254741005
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +611,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1862886126 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3093200478799057726, guid: e5cb737db51c65e4788d36c27b1366c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 2075860688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1862886129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862886126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd249a46ec8b92b4581b2a33552ad182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  update: {fileID: 118665801}
+  buttonPrefab: {fileID: 7152987091450285114, guid: 45fc9dac893a334489e7dd7f13f75f10,
+    type: 3}
 --- !u!1001 &2075860688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -607,16 +640,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 254741006}
     m_Modifications:
-    - target: {fileID: 644390598311353165, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -80
-      objectReference: {fileID: 0}
-    - target: {fileID: 644390598311353165, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -80
-      objectReference: {fileID: 0}
     - target: {fileID: 1130377744135522460, guid: e5cb737db51c65e4788d36c27b1366c6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -626,36 +649,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LobbyUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 1984658871775384991, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615198530672293732, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -80
-      objectReference: {fileID: 0}
-    - target: {fileID: 4703176649970158602, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4703176649970158602, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4703176649970158602, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4703176649970158602, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7119762422897768492, guid: e5cb737db51c65e4788d36c27b1366c6,
         type: 3}
@@ -757,15 +750,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8391268058598374901, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -30
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5458707166333534336, guid: e5cb737db51c65e4788d36c27b1366c6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3093200478799057726, guid: e5cb737db51c65e4788d36c27b1366c6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1862886129}
   m_SourcePrefab: {fileID: 100100000, guid: e5cb737db51c65e4788d36c27b1366c6, type: 3}
 --- !u!114 &2431272222443768207 stripped
 MonoBehaviour:
