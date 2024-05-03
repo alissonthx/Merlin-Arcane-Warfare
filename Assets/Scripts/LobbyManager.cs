@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
@@ -25,7 +24,6 @@ public class LobbyManager : MonoBehaviour
 
     private async void Start()
     {
-
         await UnityServices.InitializeAsync();
 
         AuthenticationService.Instance.SignedIn += () =>

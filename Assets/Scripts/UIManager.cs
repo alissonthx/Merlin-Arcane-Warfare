@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,9 +9,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas createLobbyUI;
     [SerializeField] private Canvas lobbyUI;
     [SerializeField] private Canvas joinLobbyUI;
-    [Header("Main Menu Buttons")]
-    [SerializeField] private Button createButton;
+    [Header("Main Buttons")]
+    [SerializeField] private Button createMainButton;
     [SerializeField] private Button joinButton;
+    [Header("Create Lobby Buttons")]
+    [SerializeField] private Button createButton;
     [Header("Join Lobby Buttons")]
     [SerializeField] private Button okButton;
 
@@ -18,10 +21,14 @@ public class UIManager : MonoBehaviour
     {
         InitializeUI();
 
+        createMainButton.onClick.AddListener(() =>
+        {
+            createLobbyUI.gameObject.SetActive(true);
+            mainUI.gameObject.SetActive(false);
+        });
         createButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene("Arena");
-            createLobbyUI.gameObject.SetActive(false);
         });
 
         joinButton.onClick.AddListener(() =>
@@ -34,6 +41,21 @@ public class UIManager : MonoBehaviour
         {
             joinLobbyUI.gameObject.SetActive(false);
         });
+    }
+
+    private void OnEnable()
+    {
+        ActualLobby.OnLobbyClick += UIManager_OnLobbyClick;
+    }
+    private void OnDisable()
+    {
+        ActualLobby.OnLobbyClick -= UIManager_OnLobbyClick;
+    }
+
+    private void UIManager_OnLobbyClick(object sender, EventArgs e)
+    {
+        joinLobbyUI.gameObject.SetActive(true);
+        lobbyUI.gameObject.SetActive(false);
     }
 
     public void BackUI()

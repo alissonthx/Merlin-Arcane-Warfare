@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class CreateLobbyUI : MonoBehaviour
 {
-    [SerializeField] private Button create;
+    [SerializeField] private Button createButton;
     private void Awake()
     {
-        create.onClick.AddListener(() =>
+        createButton.onClick.AddListener(() =>
        {
            LobbyManager.Instance.CreateLobby();
            _ = LobbyManager.Instance.StartHostWithRelay();

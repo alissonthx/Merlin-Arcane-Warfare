@@ -123,18 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &174107386 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8571947685572365148, guid: 54351674f78672645a27fcd6dac8fe0d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4005949685774550730}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &254741005
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +380,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2221289401332254054, guid: 78e336d72382b44438fe0a0aa5efb427,
+        type: 3}
+      propertyPath: createButton
+      value: 
+      objectReference: {fileID: 1711778411}
     - target: {fileID: 8109755606405736884, guid: 78e336d72382b44438fe0a0aa5efb427,
         type: 3}
       propertyPath: m_Name
@@ -519,6 +512,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1711778411 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5279994581997941762, guid: 78e336d72382b44438fe0a0aa5efb427,
+    type: 3}
+  m_PrefabInstance: {fileID: 441177830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1776587790 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 709946483378202340, guid: 54351674f78672645a27fcd6dac8fe0d,
@@ -781,6 +786,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 254741006}
     m_Modifications:
+    - target: {fileID: 3306247124165024498, guid: 64644245bf30c3c45bfecfdae01877cf,
+        type: 3}
+      propertyPath: m_Name
+      value: CreateButton_M
+      objectReference: {fileID: 0}
     - target: {fileID: 4498073028533116733, guid: 64644245bf30c3c45bfecfdae01877cf,
         type: 3}
       propertyPath: m_Name
@@ -790,6 +800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927751226579135830, guid: 64644245bf30c3c45bfecfdae01877cf,
+        type: 3}
+      propertyPath: m_Name
+      value: JoinButton_M
       objectReference: {fileID: 0}
     - target: {fileID: 5830871327035552098, guid: 64644245bf30c3c45bfecfdae01877cf,
         type: 3}
@@ -891,7 +906,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6340608200734474654, guid: 64644245bf30c3c45bfecfdae01877cf, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -915,11 +931,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: JoinLobbyUI
       objectReference: {fileID: 0}
-    - target: {fileID: 3617726744440582248, guid: 54351674f78672645a27fcd6dac8fe0d,
+    - target: {fileID: 6804011555345185380, guid: 54351674f78672645a27fcd6dac8fe0d,
         type: 3}
-      propertyPath: input
-      value: 
-      objectReference: {fileID: 174107386}
+      propertyPath: m_fontStyle
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1072,12 +1088,17 @@ PrefabInstance:
         type: 3}
       propertyPath: createButton
       value: 
-      objectReference: {fileID: 2431272222443768207}
+      objectReference: {fileID: 1711778411}
     - target: {fileID: 133462266099963232, guid: bfd698ac2d4ee0f4682f6c292cbce32a,
         type: 3}
       propertyPath: createLobbyUI
       value: 
       objectReference: {fileID: 441177839}
+    - target: {fileID: 133462266099963232, guid: bfd698ac2d4ee0f4682f6c292cbce32a,
+        type: 3}
+      propertyPath: createMainButton
+      value: 
+      objectReference: {fileID: 2431272222443768207}
     - target: {fileID: 2747470440392914484, guid: bfd698ac2d4ee0f4682f6c292cbce32a,
         type: 3}
       propertyPath: m_LocalPosition.x

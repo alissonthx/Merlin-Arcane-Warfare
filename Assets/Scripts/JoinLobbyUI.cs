@@ -10,20 +10,11 @@ public class JoinLobbyUI : MonoBehaviour
     private void Awake()
     {
         string input = this.input.text;
+        print(input);
 
         okButton.onClick.AddListener(() =>
        {
            _ = LobbyManager.Instance.StartClientWithRelay(input);
        });
-    }
-
-    private void Update()
-    {
-        InputUpperCase();
-    }
-
-    private void InputUpperCase()
-    {
-        input.text.ToUpper();
     }
 }
