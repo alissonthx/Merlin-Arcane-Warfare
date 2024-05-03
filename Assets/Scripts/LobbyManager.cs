@@ -10,12 +10,15 @@ using Unity.Services.Relay;
 using Unity.Networking.Transport.Relay;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using System;
 
 public class LobbyManager : MonoBehaviour
 {
     public static LobbyManager Instance;
     private Lobby hostLobby;
     private float heartbeatTimer;
+    private string joinCode;
+    public static event EventHandler OnJoinCodeCreated;
 
     private void Awake()
     {
@@ -72,33 +75,6 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    // public async void ListLobbies()
-    // {
-    //     try
-    //     {
-    //         QueryLobbiesOptions queryLobbiesOptions = new QueryLobbiesOptions
-    //         {
-    //             Count = 25,
-    //             Filters = new List<QueryFilter>{
-    //                 new QueryFilter(QueryFilter.FieldOptions.AvailableSlots,"0", QueryFilter.OpOptions.GT)
-    //             },
-    //         };
-
-    //         QueryResponse queryResponse = await Lobbies.Instance.QueryLobbiesAsync();
-
-    //         print("Lobbies found: " + queryResponse.Results.Count);
-    //         foreach (Lobby lobby in queryResponse.Results)
-    //         {
-    //             // print(lobby.Name + "" + lobby.MaxPlayers);
-
-    //         }
-    //     }
-    //     catch (LobbyServiceException e)
-    //     {
-    //         print(e);
-    //     }
-    // }
-
     public async Task<List<Lobby>> ListLobbies()
     {
         try
@@ -154,7 +130,10 @@ public class LobbyManager : MonoBehaviour
         }
         Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
-        var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+        joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+        
+        OnJoinCodeCreated?.Invoke(this, EventArgs.Empty);
+
         return NetworkManager.Singleton.StartHost() ? joinCode : null;
     }
 
@@ -169,5 +148,10 @@ public class LobbyManager : MonoBehaviour
         var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
         return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
+    }
+
+    internal string GetJoinCode()
+    {
+        return joinCode;
     }
 }

@@ -5,10 +5,12 @@ using UnityEngine.UI;
 public class ActualLobby : MonoBehaviour
 {
     public static event EventHandler OnLobbyClick;
-    [SerializeField] private Button actualButton;
+    private Button actualButton;
 
     private void Awake()
     {
+        actualButton = GetComponent<Button>();
+
         actualButton.onClick.AddListener(() =>
         {
             OnLobbyClick?.Invoke(this, EventArgs.Empty);

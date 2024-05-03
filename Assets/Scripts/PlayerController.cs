@@ -25,6 +25,8 @@ public class PlayerController : NetworkBehaviour
         // Verifies if the input sender is the owner.
         if (IsOwner) return;
 
+        print("owner!");
+
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {

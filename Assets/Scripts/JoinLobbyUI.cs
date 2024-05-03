@@ -10,7 +10,6 @@ public class JoinLobbyUI : MonoBehaviour
     private void Awake()
     {
         string input = this.input.text;
-        print(input);
 
         okButton.onClick.AddListener(() =>
        {

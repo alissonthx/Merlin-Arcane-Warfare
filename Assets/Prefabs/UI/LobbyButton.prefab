@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 4108358935097746468}
   - component: {fileID: 6240067151705868681}
   - component: {fileID: 5529370634657063281}
+  - component: {fileID: 3044224899212070950}
   m_Layer: 5
   m_Name: LobbyButton
   m_TagString: Untagged
@@ -255,3 +256,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3044224899212070950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7152987091450285114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c3e3eb9f6a71648988260ce8d747f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualButton: {fileID: 0}

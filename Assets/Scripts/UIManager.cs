@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
         okButton.onClick.AddListener(() =>
         {
             joinLobbyUI.gameObject.SetActive(false);
+            SceneManager.LoadScene("Arena");
         });
     }
 
