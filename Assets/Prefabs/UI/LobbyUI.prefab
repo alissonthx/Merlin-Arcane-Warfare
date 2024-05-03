@@ -323,7 +323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5984453288977438447}
   - component: {fileID: 8128196062797984069}
-  - component: {fileID: 5458707166333534336}
+  - component: {fileID: 2820163343830024789}
   m_Layer: 5
   m_Name: lobbyTemplate
   m_TagString: Untagged
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &5458707166333534336
+--- !u!114 &2820163343830024789
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3093200478799057726}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34b9b419493aef54681a64abcd85cc58, type: 3}
+  m_Script: {fileID: 11500000, guid: 858c6d46f90e79b48b90c360790c374e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   update: {fileID: 567703664137350135}

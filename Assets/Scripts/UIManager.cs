@@ -7,22 +7,32 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas mainUI;
     [SerializeField] private Canvas createLobbyUI;
     [SerializeField] private Canvas lobbyUI;
-    [SerializeField] private Button create;
-    [SerializeField] private Button join;
+    [SerializeField] private Canvas joinLobbyUI;
+    [Header("Main Menu Buttons")]
+    [SerializeField] private Button createButton;
+    [SerializeField] private Button joinButton;
+    [Header("Join Lobby Buttons")]
+    [SerializeField] private Button okButton;
 
     private void Awake()
     {
         InitializeUI();
 
-        create.onClick.AddListener(() =>
+        createButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene("Arena");
             createLobbyUI.gameObject.SetActive(false);
         });
-        join.onClick.AddListener(() =>
+
+        joinButton.onClick.AddListener(() =>
         {
             lobbyUI.gameObject.SetActive(true);
             mainUI.gameObject.SetActive(false);
+        });
+
+        okButton.onClick.AddListener(() =>
+        {
+            joinLobbyUI.gameObject.SetActive(false);
         });
     }
 
@@ -35,7 +45,8 @@ public class UIManager : MonoBehaviour
     private void InitializeUI()
     {
         mainUI.gameObject.SetActive(true);
-        lobbyUI.gameObject.SetActive(false);
         createLobbyUI.gameObject.SetActive(false);
+        lobbyUI.gameObject.SetActive(false);
+        joinLobbyUI.gameObject.SetActive(false);
     }
 }

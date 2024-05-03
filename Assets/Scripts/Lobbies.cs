@@ -3,18 +3,19 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Lobbies.Models;
+using Unity.Services.Core;
+using TMPro;
 
-public class LobbyList : MonoBehaviour
+public class Lobbies : MonoBehaviour
 {
     [SerializeField] private Button update;
     [SerializeField] private GameObject buttonPrefab;
 
-    private async void Awake()
+    private void Awake()
     {
-        await UpdateLobbyButtons();
-
         update.onClick.AddListener(async () =>
         {
+            await UnityServices.InitializeAsync();
             await UpdateLobbyButtons();
         });
     }
@@ -34,7 +35,7 @@ public class LobbyList : MonoBehaviour
         {
             GameObject buttonGO = Instantiate(buttonPrefab, transform);
             Button button = buttonGO.GetComponent<Button>();
-            button.GetComponentInChildren<Text>().text = lobby.Name;
+            button.GetComponentInChildren<TMP_Text>().text = lobby.Name;
         }
     }
 }

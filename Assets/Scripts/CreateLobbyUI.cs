@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreateLobby : MonoBehaviour
+public class CreateLobbyUI : MonoBehaviour
 {
     [SerializeField] private Button create;
     private void Awake()

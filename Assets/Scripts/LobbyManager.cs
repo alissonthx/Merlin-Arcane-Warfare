@@ -16,12 +16,15 @@ public class LobbyManager : MonoBehaviour
 {
     public static LobbyManager Instance;
     private Lobby hostLobby;
-    private Lobby joinnedLobby;
     private float heartbeatTimer;
 
-    private async void Awake()
+    private void Awake()
     {
         Instance = this;
+    }
+
+    private async void Start()
+    {
 
         await UnityServices.InitializeAsync();
 
@@ -110,7 +113,7 @@ public class LobbyManager : MonoBehaviour
             },
             };
 
-            QueryResponse queryResponse = await Lobbies.Instance.QueryLobbiesAsync();
+            QueryResponse queryResponse = await Unity.Services.Lobbies.Lobbies.Instance.QueryLobbiesAsync();
 
             print("Lobbies found: " + queryResponse.Results.Count);
 
@@ -119,7 +122,7 @@ public class LobbyManager : MonoBehaviour
         catch (LobbyServiceException e)
         {
             print(e);
-            return new List<Lobby>(); // Return an empty list if an exception occurs
+            return new List<Lobby>();
         }
     }
 
@@ -128,14 +131,14 @@ public class LobbyManager : MonoBehaviour
     {
         try
         {
-            QueryResponse queryResponse = await Lobbies.Instance.QueryLobbiesAsync();
+            QueryResponse queryResponse = await Unity.Services.Lobbies.Lobbies.Instance.QueryLobbiesAsync();
             // print("Lobbies found: " + queryResponse.Results.Count);
             // foreach (Lobby lobby in queryResponse.Results)
             // {
             //     print(lobby.Name + "" + lobby.MaxPlayers);
             // }
 
-            await Lobbies.Instance.JoinLobbyByCodeAsync(queryResponse.Results[0].Id);
+            await Unity.Services.Lobbies.Lobbies.Instance.JoinLobbyByCodeAsync(queryResponse.Results[0].Id);
         }
         catch (LobbyServiceException e)
         {

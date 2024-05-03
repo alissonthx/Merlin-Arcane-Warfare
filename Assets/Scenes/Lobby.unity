@@ -123,16 +123,16 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &118665801 stripped
+--- !u!114 &174107386 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 567703664137350135, guid: e5cb737db51c65e4788d36c27b1366c6,
+  m_CorrespondingSourceObject: {fileID: 8571947685572365148, guid: 54351674f78672645a27fcd6dac8fe0d,
     type: 3}
-  m_PrefabInstance: {fileID: 2075860688}
+  m_PrefabInstance: {fileID: 4005949685774550730}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &254741005
@@ -167,8 +167,9 @@ Transform:
   - {fileID: 7614740272953969661}
   - {fileID: 441177831}
   - {fileID: 348823727}
-  - {fileID: 4327134217069193790}
+  - {fileID: 1926151590134201866}
   - {fileID: 426881178}
+  - {fileID: 4327134217069193790}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &348298037
@@ -396,7 +397,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: CreateLobbyUI
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5288622371954608182, guid: 78e336d72382b44438fe0a0aa5efb427, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -517,6 +519,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1776587790 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 709946483378202340, guid: 54351674f78672645a27fcd6dac8fe0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4005949685774550730}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1792717958
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,27 +625,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1862886126 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3093200478799057726, guid: e5cb737db51c65e4788d36c27b1366c6,
-    type: 3}
-  m_PrefabInstance: {fileID: 2075860688}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1862886129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862886126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd249a46ec8b92b4581b2a33552ad182, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  update: {fileID: 118665801}
-  buttonPrefab: {fileID: 7152987091450285114, guid: 45fc9dac893a334489e7dd7f13f75f10,
-    type: 3}
 --- !u!1001 &2075860688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -751,15 +744,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 5458707166333534336, guid: e5cb737db51c65e4788d36c27b1366c6, type: 3}
+    - {fileID: 4139725821034350245, guid: e5cb737db51c65e4788d36c27b1366c6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3093200478799057726, guid: e5cb737db51c65e4788d36c27b1366c6,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1862886129}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5cb737db51c65e4788d36c27b1366c6, type: 3}
+--- !u!224 &1926151590134201866 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4005949685774550730}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &2425280261156670138 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3674486792031923482, guid: 54351674f78672645a27fcd6dac8fe0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4005949685774550730}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2431272222443768207 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3414967157857743497, guid: 64644245bf30c3c45bfecfdae01877cf,
@@ -901,6 +902,129 @@ Canvas:
     type: 3}
   m_PrefabInstance: {fileID: 3986002130004563477}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4005949685774550730
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 254741006}
+    m_Modifications:
+    - target: {fileID: 2007652039071741647, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_Name
+      value: JoinLobbyUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3617726744440582248, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: input
+      value: 
+      objectReference: {fileID: 174107386}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474147789741942955, guid: 54351674f78672645a27fcd6dac8fe0d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54351674f78672645a27fcd6dac8fe0d, type: 3}
 --- !u!1001 &4327134217069193789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -929,6 +1053,26 @@ PrefabInstance:
       propertyPath: lobbyUI
       value: 
       objectReference: {fileID: 348823726}
+    - target: {fileID: 133462266099963232, guid: bfd698ac2d4ee0f4682f6c292cbce32a,
+        type: 3}
+      propertyPath: okButton
+      value: 
+      objectReference: {fileID: 1776587790}
+    - target: {fileID: 133462266099963232, guid: bfd698ac2d4ee0f4682f6c292cbce32a,
+        type: 3}
+      propertyPath: joinButton
+      value: 
+      objectReference: {fileID: 567041649}
+    - target: {fileID: 133462266099963232, guid: bfd698ac2d4ee0f4682f6c292cbce32a,
+        type: 3}
+      propertyPath: joinLobbyUI
+      value: 
+      objectReference: {fileID: 2425280261156670138}
+    - target: {fileID: 133462266099963232, guid: bfd698ac2d4ee0f4682f6c292cbce32a,
+        type: 3}
+      propertyPath: createButton
+      value: 
+      objectReference: {fileID: 2431272222443768207}
     - target: {fileID: 133462266099963232, guid: bfd698ac2d4ee0f4682f6c292cbce32a,
         type: 3}
       propertyPath: createLobbyUI
