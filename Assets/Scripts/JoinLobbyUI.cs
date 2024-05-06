@@ -9,10 +9,9 @@ public class JoinLobbyUI : MonoBehaviour
 
     private void Awake()
     {
-        string input = this.input.text;
-
         okButton.onClick.AddListener(() =>
        {
+           string input = this.input.text;
            _ = LobbyManager.Instance.StartClientWithRelay(input);
        });
     }

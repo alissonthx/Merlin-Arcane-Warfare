@@ -28,12 +28,10 @@ public class LobbyManager : MonoBehaviour
     private async void Start()
     {
         await UnityServices.InitializeAsync();
-
         AuthenticationService.Instance.SignedIn += () =>
         {
             print("Signed in " + AuthenticationService.Instance.PlayerId);
         };
-
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
@@ -131,7 +129,7 @@ public class LobbyManager : MonoBehaviour
         Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
         joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-        
+
         OnJoinCodeCreated?.Invoke(this, EventArgs.Empty);
 
         return NetworkManager.Singleton.StartHost() ? joinCode : null;
@@ -147,6 +145,7 @@ public class LobbyManager : MonoBehaviour
 
         var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
+
         return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
     }
 

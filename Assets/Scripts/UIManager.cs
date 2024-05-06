@@ -62,6 +62,7 @@ public class UIManager : MonoBehaviour
     public void BackUI()
     {
         lobbyUI.gameObject.SetActive(false);
+        createLobbyUI.gameObject.SetActive(false);
         mainUI.gameObject.SetActive(true);
     }
 
