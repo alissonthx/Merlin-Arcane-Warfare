@@ -5,28 +5,29 @@ using Unity.Netcode;
 
 public class PlayerCameraFollow : NetworkBehaviour
 {
-    [SerializeField] private GameObject virtualCamera;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+
+    private void Awake()
+    {
+        virtualCamera = GameObject.FindWithTag("Camera").GetComponent<CinemachineVirtualCamera>();
+    }
 
     private void OnEnable()
     {
-        GameManager.OnGameInitialize += OnJoinCodeCreated_SetCameraFollowTarget;
+        GameManager.OnGameInitialize += OnGameInitialize_SetCameraFollowTarget;
     }
 
     private void OnDisable()
     {
-        GameManager.OnGameInitialize -= OnJoinCodeCreated_SetCameraFollowTarget;
+        GameManager.OnGameInitialize -= OnGameInitialize_SetCameraFollowTarget;
     }
 
-    private void OnJoinCodeCreated_SetCameraFollowTarget(object sender, EventArgs e)
+    private void OnGameInitialize_SetCameraFollowTarget(object sender, EventArgs e)
     {
-        virtualCamera = GameObject.FindWithTag("Camera");
-
-        if (IsOwner)
+        if (virtualCamera != null && IsOwner)
         {
-            if (virtualCamera != null && this != null)
-            {
-                virtualCamera.GetComponent<CinemachineVirtualCamera>().Follow = transform;
-            }
+            print("change transform");
+            virtualCamera.Follow = transform;
         }
     }
 

@@ -33,12 +33,12 @@ public class PlayerController : NetworkBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         cameraTransform = Camera.main.GetComponent<Transform>();
-
-        GameManager.Instance.StartRound();
     }
 
-    void Start()
+    private void Start()
     {
+        GameManager.Instance.StartRound();
+
         if (IsClient && IsOwner)
         {
             transform.position = new Vector3(Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
@@ -46,7 +46,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (IsClient && IsOwner)
         {
@@ -54,11 +54,11 @@ public class PlayerController : NetworkBehaviour
         }
 
         groundedPlayer = characterController.isGrounded;
-
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
         }
+
 
         ClientMoveAndRotate();
         ClientVisuals();
