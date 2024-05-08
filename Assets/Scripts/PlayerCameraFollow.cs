@@ -26,7 +26,6 @@ public class PlayerCameraFollow : NetworkBehaviour
     {
         if (virtualCamera != null && IsOwner)
         {
-            print("change transform");
             virtualCamera.Follow = transform;
         }
     }

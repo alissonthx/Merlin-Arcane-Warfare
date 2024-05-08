@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : NetworkBehaviour
 {
     [SerializeField] private float playerSpeed = 5.5f;
+    [SerializeField] private float rotateSpeed = 2f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -19.81f;
 
@@ -68,11 +69,11 @@ public class PlayerController : NetworkBehaviour
     {
         if (networkPositionDirection.Value != Vector3.zero)
         {
-            characterController.Move(networkPositionDirection.Value);
+            characterController.Move(networkPositionDirection.Value * Time.deltaTime * playerSpeed);
         }
         if (networkRotationDirection.Value != Vector3.zero)
         {
-            transform.Rotate(networkRotationDirection.Value, Space.World);
+            characterController.transform.Rotate(networkRotationDirection.Value * Time.deltaTime * rotateSpeed);
         }
     }
 
@@ -117,7 +118,7 @@ public class PlayerController : NetworkBehaviour
         if (oldInputPosition != inputPosition || oldInputRotation != inputRotation)
         {
             oldInputPosition = inputPosition;
-            UpdateClientPositionAndRotationServerRpc(playerVelocity, playerVelocity);
+            UpdateClientPositionAndRotationServerRpc(inputPosition, inputRotation);
         }
 
     }
