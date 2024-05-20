@@ -397,7 +397,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 330585546}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -570,7 +570,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 10825
+  m_ColorTemperature: 9026
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -1307,31 +1307,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.801471
-      objectReference: {fileID: 0}
-    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.70710677
-      objectReference: {fileID: 0}
-    - target: {fileID: 626881070512702026, guid: 8167c67906dab2b4190901e3597aca6a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
     - target: {fileID: 2813643982275014241, guid: 8167c67906dab2b4190901e3597aca6a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1381,16 +1356,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6290359524997813415, guid: 8167c67906dab2b4190901e3597aca6a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.217
-      objectReference: {fileID: 0}
-    - target: {fileID: 6290359524997813415, guid: 8167c67906dab2b4190901e3597aca6a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.192
       objectReference: {fileID: 0}
     - target: {fileID: 6652553209859045263, guid: 8167c67906dab2b4190901e3597aca6a,
         type: 3}

@@ -8,4 +8,8 @@ public class AimUI : MonoBehaviour
     {
         Cursor.visible = false;
     }
+
+    private void Update(){
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }

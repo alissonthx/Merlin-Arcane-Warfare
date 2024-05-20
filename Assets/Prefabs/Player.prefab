@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 3
+  rotateSpeed: 0.2
   jumpHeight: 1
   gravityValue: -19.81
   defaultInitialPositionOnPlane: {x: -4, y: 4}
@@ -93,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f72e6a7386b2cb45bae6f78b80e4d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1225470813583335965, guid: 89ec3e5ab32a9594da4f5ae345e18a25,
+  projectilePrefab: {fileID: 2236179779622170474, guid: 89ec3e5ab32a9594da4f5ae345e18a25,
     type: 3}
   firePoint: {fileID: 3730972743748375583}
   projectileSpeed: 10

@@ -1,13 +1,13 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class ShootProjectiles : MonoBehaviour
+public class ShootProjectiles : NetworkBehaviour
 {
-    [SerializeField] private Transform projectile;
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float projectileSpeed = 10f;
     private InputManager inputManager;
     private Camera cam;
-    private Vector3 destination;
     private float distanceOfRay = 1000f;
     private float fireRate = 4f;
     private float timeToFire;
@@ -20,25 +20,43 @@ public class ShootProjectiles : MonoBehaviour
 
     private void Update()
     {
-        if (inputManager.PlayerShootedThisFrame())
+        if (inputManager.PlayerShootedThisFrame() && IsOwner)
         {
-            timeToFire = Time.time + 1 / fireRate;
-            ShootProjectile();
+            if (Time.time > timeToFire)
+            {
+                timeToFire = Time.time + 1 / fireRate;
+                ShootProjectile();
+            }
         }
     }
 
     private void ShootProjectile()
     {
-        // creates a ray in the center of the screen
+        // Create a ray from the center of the screen
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
-            destination = hit.point;
-        else
-            destination = ray.GetPoint(distanceOfRay);
+        if (Physics.Raycast(ray, out hit, distanceOfRay))
+        {
+            // Instantiate projectile at the firePoint position
+            GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
-        Transform projectileGO = Instantiate(projectile, firePoint.position, Quaternion.identity);
-        projectileGO.GetComponent<Rigidbody>().velocity = (destination - firePoint.position).normalized * projectileSpeed;
+            // Calculate direction towards hit point
+            Vector3 direction = (hit.point - firePoint.position).normalized;
+
+            // Set projectile velocity
+            projectileGO.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
+
+            // Spawn the projectile over the network
+            if (IsServer)
+            {
+                // Directly call Spawn on the NetworkObject component
+                projectileGO.GetComponent<NetworkObject>().Spawn();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Raycast didn't hit anything. Not spawning projectile.");
+        }
     }
 }
