@@ -18,6 +18,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
 
     private CharacterController characterController;
+    private ShootProjectiles shootProjectiles;
 
     // Client caches positions
     private Vector3 oldInputPosition = Vector3.zero;
@@ -32,12 +33,29 @@ public class PlayerController : NetworkBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        shootProjectiles = GetComponent<ShootProjectiles>();
         animator = GetComponentInChildren<Animator>();
         cameraTransform = Camera.main.GetComponent<Transform>();
     }
 
+    private void OnEnable()
+    {
+        shootProjectiles.OnShooting += OnShooting_ShootAnimation;
+    }
+
+    private void OnDisable()
+    {
+        shootProjectiles.OnShooting -= OnShooting_ShootAnimation;
+    }
+
+    private void OnShooting_ShootAnimation(object sender, System.EventArgs e)
+    {
+        UpdatePlayerStateServerRpc(PlayerState.Attack);
+    }
+
     private void Start()
     {
+
         GameManager.Instance.StartRound();
 
         if (IsClient && IsOwner)
@@ -58,6 +76,7 @@ public class PlayerController : NetworkBehaviour
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
+            // UpdatePlayerStateServerRpc(PlayerState.JumpEnd);
         }
 
 
@@ -103,6 +122,7 @@ public class PlayerController : NetworkBehaviour
         if (InputManager.Instance.PlayerJumpedThisFrame() && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            UpdatePlayerStateServerRpc(PlayerState.JumpStart);
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;

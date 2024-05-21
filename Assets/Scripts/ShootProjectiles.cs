@@ -1,14 +1,15 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
 public class ShootProjectiles : NetworkBehaviour
 {
+    public event EventHandler OnShooting;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float projectileSpeed = 10f;
     private InputManager inputManager;
     private Camera cam;
-    private float distanceOfRay = 1000f;
     private float fireRate = 4f;
     private float timeToFire;
 
@@ -32,31 +33,22 @@ public class ShootProjectiles : NetworkBehaviour
 
     private void ShootProjectile()
     {
-        // Create a ray from the center of the screen
-        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
+        // Create a ray from the center of the screen towards a point far away
+        Vector3 shootDirection = cam.transform.forward;
+        Vector3 targetPoint = firePoint.position + shootDirection * 1000f; // Arbitrary large distance
 
-        if (Physics.Raycast(ray, out hit, distanceOfRay))
+        GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+
+        // Calculate direction towards the target point in the sky and set velocity
+        Vector3 direction = (targetPoint - firePoint.position).normalized;
+        projectileGO.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
+
+        // Spawn the projectile over the network
+        if (IsServer)
         {
-            // Instantiate projectile at the firePoint position
-            GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-
-            // Calculate direction towards hit point
-            Vector3 direction = (hit.point - firePoint.position).normalized;
-
-            // Set projectile velocity
-            projectileGO.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
-
-            // Spawn the projectile over the network
-            if (IsServer)
-            {
-                // Directly call Spawn on the NetworkObject component
-                projectileGO.GetComponent<NetworkObject>().Spawn();
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Raycast didn't hit anything. Not spawning projectile.");
+            // Directly call Spawn on the NetworkObject component
+            projectileGO.GetComponent<NetworkObject>().Spawn();
+            OnShooting?.Invoke(this, EventArgs.Empty);
         }
     }
 }
