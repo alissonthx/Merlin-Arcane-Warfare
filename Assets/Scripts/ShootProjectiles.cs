@@ -1,10 +1,8 @@
-using System;
 using Unity.Netcode;
 using UnityEngine;
 
 public class ShootProjectiles : NetworkBehaviour
 {
-    public event EventHandler OnShooting;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float projectileSpeed = 10f;
@@ -33,13 +31,25 @@ public class ShootProjectiles : NetworkBehaviour
 
     private void ShootProjectile()
     {
-        // Create a ray from the center of the screen towards a point far away
-        Vector3 shootDirection = cam.transform.forward;
-        Vector3 targetPoint = firePoint.position + shootDirection * 1000f; // Arbitrary large distance
+        // Create a ray from the center of the screen
+        Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        RaycastHit hit;
+
+        Vector3 targetPoint;
+
+        // Perform the raycast and check if it hits something
+        if (Physics.Raycast(ray, out hit))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            targetPoint = ray.GetPoint(1000f); // Arbitrary large distance
+        }
 
         GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
-        // Calculate direction towards the target point in the sky and set velocity
+        // Calculate direction towards the target point
         Vector3 direction = (targetPoint - firePoint.position).normalized;
         projectileGO.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
 
@@ -48,7 +58,6 @@ public class ShootProjectiles : NetworkBehaviour
         {
             // Directly call Spawn on the NetworkObject component
             projectileGO.GetComponent<NetworkObject>().Spawn();
-            OnShooting?.Invoke(this, EventArgs.Empty);
         }
     }
 }
