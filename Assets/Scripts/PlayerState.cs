@@ -2,8 +2,7 @@ public enum PlayerState
 {
     Idle,
     Walk,
-    JumpStart,
-    JumpEnd,
+    Jump,    
     Attack,
     ReverseWalk,
 }

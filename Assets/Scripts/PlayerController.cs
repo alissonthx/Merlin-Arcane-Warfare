@@ -76,7 +76,6 @@ public class PlayerController : NetworkBehaviour
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
-            // UpdatePlayerStateServerRpc(PlayerState.JumpEnd);
         }
 
 
@@ -122,7 +121,7 @@ public class PlayerController : NetworkBehaviour
         if (InputManager.Instance.PlayerJumpedThisFrame() && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-            UpdatePlayerStateServerRpc(PlayerState.JumpStart);
+            UpdatePlayerStateServerRpc(PlayerState.Jump);
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
