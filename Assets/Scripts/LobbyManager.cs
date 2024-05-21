@@ -47,7 +47,7 @@ public class LobbyManager : MonoBehaviour
             heartbeatTimer -= Time.deltaTime;
             if (heartbeatTimer < 0f)
             {
-                float heartbeatTimerMax = 999f;
+                float heartbeatTimerMax = 15f;
                 heartbeatTimer = heartbeatTimerMax;
 
                 await LobbyService.Instance.SendHeartbeatPingAsync(hostLobby.Id);
