@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ public class LoadManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        
+
         loadingScreen.SetActive(false);
     }
 
@@ -22,7 +23,7 @@ public class LoadManager : MonoBehaviour
     private IEnumerator LoadSceneAsync(int indexScene)
     {
         loadingScreen.SetActive(true);
-
+    
         AsyncOperation operation = SceneManager.LoadSceneAsync(indexScene);
 
         while (!operation.isDone)

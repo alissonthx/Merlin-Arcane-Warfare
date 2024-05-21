@@ -97,7 +97,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2236179779622170474, guid: 89ec3e5ab32a9594da4f5ae345e18a25,
     type: 3}
   firePoint: {fileID: 3730972743748375583}
-  projectileSpeed: 10
+  projectileSpeed: 15
 --- !u!143 &2167719462135787051
 CharacterController:
   m_ObjectHideFlags: 0

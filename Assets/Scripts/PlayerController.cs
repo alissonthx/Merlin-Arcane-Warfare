@@ -1,9 +1,11 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkObject))]
 public class PlayerController : NetworkBehaviour
 {
+    public static event EventHandler OnPlayerJoined;
     [SerializeField] private float playerSpeed = 5.5f;
     [SerializeField] private float rotateSpeed = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
@@ -60,8 +62,10 @@ public class PlayerController : NetworkBehaviour
 
         if (IsClient && IsOwner)
         {
-            transform.position = new Vector3(Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
-                   Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y));
+            OnPlayerJoined?.Invoke(this, EventArgs.Empty);
+
+            transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
+                   UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y));
         }
     }
 
