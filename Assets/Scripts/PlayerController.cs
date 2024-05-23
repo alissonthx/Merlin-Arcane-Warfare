@@ -3,13 +3,15 @@ using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkObject))]
-public class PlayerController : NetworkBehaviour
+public class PlayerController : NetworkBehaviour, IDamageable
 {
     public static event EventHandler OnPlayerJoined;
     [SerializeField] private float playerSpeed = 5.5f;
     [SerializeField] private float rotateSpeed = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -19.81f;
+    [SerializeField] private float health = 100f;
+    [SerializeField] private float currentHealth;
 
     [SerializeField] private Vector2 defaultInitialPositionOnPlane = new Vector2(-4, 4);
 
@@ -28,7 +30,7 @@ public class PlayerController : NetworkBehaviour
 
     private Animator animator;
     private Transform cameraTransform;
-    private bool groundedPlayer;
+    private bool isGrounded;
     private Vector3 playerVelocity;
 
     private void Awake()
@@ -40,6 +42,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Start()
     {
+        currentHealth = health;
 
         GameManager.Instance.StartRound();
 
@@ -59,8 +62,8 @@ public class PlayerController : NetworkBehaviour
             ClientInput();
         }
 
-        groundedPlayer = characterController.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        isGrounded = characterController.isGrounded;
+        if (isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
         }
@@ -105,7 +108,7 @@ public class PlayerController : NetworkBehaviour
         transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
 
         // Changes the height position of the player
-        if (InputManager.Instance.PlayerJumpedThisFrame() && groundedPlayer)
+        if (InputManager.Instance.PlayerJumpedThisFrame() && isGrounded)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             UpdatePlayerStateServerRpc(PlayerState.Jump);
@@ -120,10 +123,12 @@ public class PlayerController : NetworkBehaviour
         characterController.Move(playerVelocity * Time.deltaTime);
 
         // Change animation states
-        if (InputManager.Instance.GetPlayerMovement() == Vector2.zero)
+        if (InputManager.Instance.GetPlayerMovement() == Vector2.zero && !InputManager.Instance.PlayerJumpedThisFrame())
             UpdatePlayerStateServerRpc(PlayerState.Idle);
-        else if (InputManager.Instance.GetPlayerMovement() != Vector2.zero)
+        if (InputManager.Instance.GetPlayerMovement() != Vector2.zero && !InputManager.Instance.PlayerJumpedThisFrame())
             UpdatePlayerStateServerRpc(PlayerState.Walk);
+        if (InputManager.Instance.GetPlayerMovement().y < 0 && !InputManager.Instance.PlayerJumpedThisFrame())
+            UpdatePlayerStateServerRpc(PlayerState.WalkBack);
 
         // Let server know about position and rotation client changes
         if (oldInputPosition != inputPosition || oldInputRotation != inputRotation)
@@ -131,7 +136,6 @@ public class PlayerController : NetworkBehaviour
             oldInputPosition = inputPosition;
             UpdateClientPositionAndRotationServerRpc(inputPosition, inputRotation);
         }
-
     }
 
 
@@ -147,5 +151,19 @@ public class PlayerController : NetworkBehaviour
     public void UpdatePlayerStateServerRpc(PlayerState state)
     {
         networkPlayerState.Value = state;
+    }
+
+    public void Damage(float damage)
+    {
+        currentHealth -= damage;
+    }
+
+    public void Die()
+    {
+        if (currentHealth <= 0)
+        {
+            gameObject.SetActive(false);
+            this.GetComponent<NetworkObject>().Despawn();
+        }
     }
 }

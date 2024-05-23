@@ -4900,6 +4900,7 @@ GameObject:
   - component: {fileID: 179304862421848587}
   - component: {fileID: -6953695746053040446}
   - component: {fileID: 2854900388195230378}
+  - component: {fileID: -938372986468207749}
   m_Layer: 0
   m_Name: VFXProjectileTut
   m_TagString: Bullet
@@ -4964,7 +4965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3635782657
+  GlobalObjectIdHash: 2285302799
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -4985,6 +4986,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d200febafec7a3f419600857ad6ffd20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-938372986468207749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2236179779622170474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 0
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 0
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &6035647556615989057
 GameObject:
   m_ObjectHideFlags: 0

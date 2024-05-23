@@ -17,7 +17,7 @@ public class ShootProjectiles : NetworkBehaviour
         cam = Camera.main;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (inputManager.PlayerShootedThisFrame() && IsOwner)
         {
