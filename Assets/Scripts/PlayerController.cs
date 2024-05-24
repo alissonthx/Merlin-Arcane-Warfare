@@ -163,7 +163,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             gameObject.SetActive(false);
-            this.GetComponent<NetworkObject>().Despawn();
+            GetComponent<NetworkObject>().Despawn();
         }
     }
 }

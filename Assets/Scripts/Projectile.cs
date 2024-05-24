@@ -1,27 +1,59 @@
+using System;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
 public class Projectile : NetworkBehaviour
 {
+    [SerializeField] private GameObject vfxImpact;
+    private NetworkObject networkObject;
+    private NetworkObject impactNetworkObject;
+
+    private void Awake()
+    {
+        networkObject = GetComponent<NetworkObject>();
+        impactNetworkObject = vfxImpact.GetComponent<NetworkObject>();
+    }
+
     private void OnCollisionEnter(Collision col)
     {
-        // Checks if the actual gameobject have interface to deal damage
-        // IDamageable damageable = col.gameObject.GetComponent<IDamageable>();
-        // if (damageable != null && col.gameObject.tag == "Player")
-        // {
-        //     float weaponDamage = 10f;
-        //     damageable.Damage(weaponDamage);
-        //     Destroy(gameObject);
-        // }
-        // else
-        // {
-        //     Destroy(gameObject);
-        // }
+        Debug.Log("Collides with something");
 
-        // Destroy(gameObject);        
+        // Checks if the actual gameobject has interface to deal damage
+        IDamageable damageable = col.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            float weaponDamage = 10f;
+            damageable.Damage(weaponDamage);
 
-        // if (IsServer && networkObject.IsSpawned)
-        //     networkObject.Despawn();
+            Destroy(gameObject);
+            StartCoroutine(DeSpawnBullets(networkObject, 0.1f));
+
+            // Instantiate impact on point of collision
+            var impact = Instantiate(vfxImpact, col.contacts[0].point, Quaternion.identity) as GameObject;
+           
+            Destroy(impact, 1);
+            StartCoroutine(DeSpawnBullets(impactNetworkObject, 1f));
+        }
+        else
+        {
+            Destroy(gameObject);
+            StartCoroutine(DeSpawnBullets(networkObject, 0.1f));
+
+            // Instantiate impact on point of collision
+            var impact = Instantiate(vfxImpact, col.contacts[0].point, Quaternion.identity) as GameObject;
+            
+            Destroy(impact, 1);
+            StartCoroutine(DeSpawnBullets(impactNetworkObject, 1f));
+        }
     }
+
+    private IEnumerator DeSpawnBullets(NetworkObject networkObjectToDespawn, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (IsServer && networkObjectToDespawn.IsSpawned)
+            networkObjectToDespawn.Despawn();
+    }
+
 }
 

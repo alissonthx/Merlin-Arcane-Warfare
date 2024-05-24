@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2806564373
+  GlobalObjectIdHash: 233130892
   InScenePlacedSourceGlobalObjectIdHash: 233130892
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -75,6 +75,8 @@ MonoBehaviour:
   rotateSpeed: 0.2
   jumpHeight: 1
   gravityValue: -19.81
+  health: 100
+  currentHealth: 0
   defaultInitialPositionOnPlane: {x: -4, y: 4}
   networkPositionDirection:
     m_InternalValue: {x: 0, y: 0, z: 0}
@@ -97,7 +99,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2236179779622170474, guid: 89ec3e5ab32a9594da4f5ae345e18a25,
     type: 3}
   firePoint: {fileID: 3730972743748375583}
-  projectileSpeed: 15
+  projectileSpeed: 9
+  fireRate: 2
 --- !u!143 &2167719462135787051
 CharacterController:
   m_ObjectHideFlags: 0

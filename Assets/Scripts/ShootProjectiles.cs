@@ -5,10 +5,10 @@ public class ShootProjectiles : NetworkBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float projectileSpeed = 10f;
+    [SerializeField] private float projectileSpeed = 15f;
+    [SerializeField]private float fireRate = 4f;
     private InputManager inputManager;
     private Camera cam;
-    private float fireRate = 4f;
     private float timeToFire;
 
     private void Start()
@@ -17,7 +17,7 @@ public class ShootProjectiles : NetworkBehaviour
         cam = Camera.main;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (inputManager.PlayerShootedThisFrame() && IsOwner)
         {
@@ -31,11 +31,12 @@ public class ShootProjectiles : NetworkBehaviour
 
     private void ShootProjectile()
     {
-        // Create a ray from the center of the screen
+        // Create a ray from the center of the screen 
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;
-
         Vector3 targetPoint;
+        // Instantiate the bullet
+        GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
         // Perform the raycast and check if it hits something
         if (Physics.Raycast(ray, out hit))
@@ -44,10 +45,8 @@ public class ShootProjectiles : NetworkBehaviour
         }
         else
         {
-            targetPoint = ray.GetPoint(1000f); // Arbitrary large distance
+            targetPoint = ray.GetPoint(1000f); // Arbitrary large distance            
         }
-
-        GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
         // Calculate direction towards the target point
         Vector3 direction = (targetPoint - firePoint.position).normalized;
@@ -56,7 +55,6 @@ public class ShootProjectiles : NetworkBehaviour
         // Spawn the projectile over the network
         if (IsServer)
         {
-            // Directly call Spawn on the NetworkObject component
             projectileGO.GetComponent<NetworkObject>().Spawn();
         }
     }
