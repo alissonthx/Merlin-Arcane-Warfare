@@ -5040,7 +5040,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2236179779622170474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d200febafec7a3f419600857ad6ffd20, type: 3}
+  m_Script: {fileID: 11500000, guid: 47637543588261542aba843a09c3bbef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   vfxImpact: {fileID: 1203365917585750713, guid: 7a8e2d710e1c7dc45af8f9ad8c3366a1,

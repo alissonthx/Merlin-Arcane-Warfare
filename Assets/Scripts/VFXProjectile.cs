@@ -3,7 +3,7 @@ using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Projectile : NetworkBehaviour
+public class VFXProjectile : NetworkBehaviour
 {
     [SerializeField] private GameObject vfxImpact;
     private NetworkObject networkObject;
@@ -18,12 +18,12 @@ public class Projectile : NetworkBehaviour
     private void OnCollisionEnter(Collision col)
     {
         Debug.Log("Collides with something");
-
         // Checks if the actual gameobject has interface to deal damage
         IDamageable damageable = col.gameObject.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            float weaponDamage = 10f;
+            print("Deal Damage");
+            float weaponDamage = 100f;
             damageable.Damage(weaponDamage);
 
             Destroy(gameObject);
@@ -54,6 +54,5 @@ public class Projectile : NetworkBehaviour
         if (IsServer && networkObjectToDespawn.IsSpawned)
             networkObjectToDespawn.Despawn();
     }
-
 }
 

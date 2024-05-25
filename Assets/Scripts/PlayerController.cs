@@ -162,8 +162,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         if (currentHealth <= 0)
         {
+            print("I'm fucking dying");
             gameObject.SetActive(false);
-            GetComponent<NetworkObject>().Despawn();
+            if (IsSpawned)
+                GetComponent<NetworkObject>().Despawn();
         }
     }
 }
