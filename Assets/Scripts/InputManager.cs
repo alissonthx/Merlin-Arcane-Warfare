@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -18,7 +19,6 @@ public class InputManager : MonoBehaviour
         }
 
         playerControls = new PlayerControls();
-        Cursor.visible = false;
     }
 
     private void OnEnable()
@@ -44,5 +44,10 @@ public class InputManager : MonoBehaviour
     public bool PlayerJumpedThisFrame()
     {
         return playerControls.Player.Jump.triggered;
+    }
+
+    public bool PlayerShootedThisFrame()
+    {
+        return playerControls.Player.Fire.triggered;
     }
 }
