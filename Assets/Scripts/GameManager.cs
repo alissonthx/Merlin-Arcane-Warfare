@@ -11,6 +11,12 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameActive => isGameActive;
     public bool IsPlayerAlreadySpawn => isPlayerAlreadySpawn;
+    private ActualScene actualScene;
+    public enum ActualScene
+    {
+        mainMenu,
+        Arena,
+    }
 
     private void Awake()
     {
@@ -23,6 +29,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        actualScene = ActualScene.mainMenu;
     }
 
     public void StartRound()
@@ -30,5 +38,10 @@ public class GameManager : MonoBehaviour
         OnGameInitialize?.Invoke(this, EventArgs.Empty);
         isGameActive = true;
         isPlayerAlreadySpawn = true;
+    }
+
+    public ActualScene GetActualScene()
+    {
+        return actualScene;
     }
 }

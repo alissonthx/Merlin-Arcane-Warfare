@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private AudioClip[] musicsClip;
+    private AudioSource audioSource;
+
+    private void Awake()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        if (GameManager.Instance.GetActualScene() == GameManager.ActualScene.mainMenu)
+            audioSource.clip = musicsClip[0];
+        else if (GameManager.Instance.GetActualScene() == GameManager.ActualScene.Arena)
+            audioSource.clip = musicsClip[1];
     }
 }
