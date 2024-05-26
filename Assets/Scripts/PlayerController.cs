@@ -57,6 +57,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void Update()
     {
+        if (currentHealth <= 0)
+            Die();
+
         if (IsClient && IsOwner)
         {
             ClientInput();
@@ -160,12 +163,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     public void Die()
     {
-        if (currentHealth <= 0)
-        {
-            print("I'm fucking dying");
-            gameObject.SetActive(false);
-            if (IsSpawned)
-                GetComponent<NetworkObject>().Despawn();
-        }
+        print("I'm fucking dying");
+        gameObject.SetActive(false);
+        if (IsServer && IsSpawned)
+            GetComponent<NetworkObject>().Despawn();
     }
 }
