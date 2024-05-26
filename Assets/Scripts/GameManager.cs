@@ -5,12 +5,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public static event EventHandler OnGameInitialize;
-
-    private bool isGameActive = false;
-    private bool isPlayerAlreadySpawn = false;
-
-    public bool IsGameActive => isGameActive;
-    public bool IsPlayerAlreadySpawn => isPlayerAlreadySpawn;
     private ActualScene actualScene;
     public enum ActualScene
     {
@@ -36,8 +30,7 @@ public class GameManager : MonoBehaviour
     public void StartRound()
     {
         OnGameInitialize?.Invoke(this, EventArgs.Empty);
-        isGameActive = true;
-        isPlayerAlreadySpawn = true;
+        actualScene = ActualScene.Arena;
     }
 
     public ActualScene GetActualScene()

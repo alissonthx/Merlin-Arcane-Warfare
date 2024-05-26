@@ -44,3 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d65d2909e50644f82b20fd10f18d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxImpact:
+  - {fileID: 8300000, guid: 548a310a79729874ea2abf04e24c26bc, type: 3}
+  - {fileID: 8300000, guid: a47c982efba8bb64f911cc1936f39b27, type: 3}
+  - {fileID: 8300000, guid: 4cc152af7ee6e08459ffb5f90d84f0ab, type: 3}
+  - {fileID: 8300000, guid: 6d5d9d79c472b3f4fb0045b505464548, type: 3}
+  - {fileID: 8300000, guid: 7ab32c812e839a742aa6fc34ff23a340, type: 3}
+  - {fileID: 8300000, guid: 12d4d5c3621fd72488b3eaf08385687a, type: 3}
+  sfxProjectile: []

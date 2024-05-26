@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
         createButton.onClick.AddListener(() =>
         {
             LoadManager.Instance.LoadScene(1);
+            GameManager.Instance.StartRound();
         });
 
         joinButton.onClick.AddListener(() =>
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
         {
             joinLobbyUI.gameObject.SetActive(false);
             LoadManager.Instance.LoadScene(1);
+            GameManager.Instance.StartRound();
         });
     }
 
