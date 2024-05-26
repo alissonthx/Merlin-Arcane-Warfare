@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4293411146
+  GlobalObjectIdHash: 2806564373
   InScenePlacedSourceGlobalObjectIdHash: 233130892
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2236179779622170474, guid: 89ec3e5ab32a9594da4f5ae345e18a25,
     type: 3}
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 1875810412351306545}
   projectileSpeed: 9
   fireRate: 2
 --- !u!143 &2167719462135787051
@@ -239,6 +239,12 @@ PrefabInstance:
 --- !u!4 &1502836841662160230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4463868907105534, guid: ccd8c3b89aa02e943a08ab9238a8a70c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1501103818994921880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1875810412351306545 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1070953299034835625, guid: ccd8c3b89aa02e943a08ab9238a8a70c,
     type: 3}
   m_PrefabInstance: {fileID: 1501103818994921880}
   m_PrefabAsset: {fileID: 0}
