@@ -20,6 +20,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField] private NetworkVariable<Vector3> networkRotationDirection = new NetworkVariable<Vector3>();
 
     [SerializeField] private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
+    [SerializeField] private GameObject bodyGO;
 
     private CharacterController characterController;
 
@@ -49,6 +50,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (IsClient && IsOwner)
         {
             OnPlayerJoined?.Invoke(this, EventArgs.Empty);
+
+            // disable body in fps view
+            bodyGO.SetActive(false);
 
             transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
                    UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y));
@@ -116,11 +120,11 @@ public class PlayerController : NetworkBehaviour, IDamageable
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             UpdatePlayerStateServerRpc(PlayerState.Jump);
         }
-
-        // if (InputManager.Instance.PlayerShootedThisFrame())
-        // {
-        //     UpdatePlayerStateServerRpc(PlayerState.Attack);
-        // }
+        
+        if (InputManager.Instance.PlayerShootedThisFrame())
+        {
+            UpdatePlayerStateServerRpc(PlayerState.Attack);
+        }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         characterController.Move(playerVelocity * Time.deltaTime);
