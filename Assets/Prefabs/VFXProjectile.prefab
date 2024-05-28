@@ -306,7 +306,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.45360726, g: 0.14901963, b: 0.92941177, a: 1}
+      maxColor: {r: 0.8318193, g: 0.114142045, b: 0.8962264, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5122,7 +5122,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.05
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6625706690443658080
 GameObject:
@@ -5229,7 +5229,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.14901961, g: 0.4666667, b: 0.9294118, a: 1}
+      key0: {r: 0.2900258, g: 0.08414916, b: 0.5754717, a: 1}
       key1: {r: 1, g: 0.3443396, b: 0.97290665, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

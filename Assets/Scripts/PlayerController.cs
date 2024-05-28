@@ -121,20 +121,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
             UpdatePlayerStateServerRpc(PlayerState.Jump);
         }
 
-        if (InputManager.Instance.PlayerShootedThisFrame())
-        {
-            UpdatePlayerStateServerRpc(PlayerState.Attack);
-        }
-
         playerVelocity.y += gravityValue * Time.deltaTime;
         characterController.Move(playerVelocity * Time.deltaTime);
 
         // Change animation states
+        if (InputManager.Instance.PlayerShootedThisFrame())
+            UpdatePlayerStateServerRpc(PlayerState.Attack);
         if (InputManager.Instance.GetPlayerMovement() == Vector2.zero)
             UpdatePlayerStateServerRpc(PlayerState.Idle);
-        if (InputManager.Instance.GetPlayerMovement() != Vector2.zero && isGrounded)
+        else if (InputManager.Instance.GetPlayerMovement() != Vector2.zero && !InputManager.Instance.PlayerJumpedThisFrame())
             UpdatePlayerStateServerRpc(PlayerState.Walk);
-        if (InputManager.Instance.GetPlayerMovement().y < 0 && isGrounded)
+        else if (InputManager.Instance.GetPlayerMovement().y < 0 && !InputManager.Instance.PlayerJumpedThisFrame())
             UpdatePlayerStateServerRpc(PlayerState.WalkBack);
 
         // Let server know about position and rotation client changes
