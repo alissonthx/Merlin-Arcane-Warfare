@@ -20,6 +20,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField] private NetworkVariable<Vector3> networkRotationDirection = new NetworkVariable<Vector3>();
 
     [SerializeField] private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
+    [SerializeField] private GameObject bodyGO;
 
     private CharacterController characterController;
 
@@ -49,6 +50,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (IsClient && IsOwner)
         {
             OnPlayerJoined?.Invoke(this, EventArgs.Empty);
+
+            // disable body in fps view
+            bodyGO.SetActive(false);
 
             transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
                    UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y));
@@ -117,20 +121,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
             UpdatePlayerStateServerRpc(PlayerState.Jump);
         }
 
-        // if (InputManager.Instance.PlayerShootedThisFrame())
-        // {
-        //     UpdatePlayerStateServerRpc(PlayerState.Attack);
-        // }
-
         playerVelocity.y += gravityValue * Time.deltaTime;
         characterController.Move(playerVelocity * Time.deltaTime);
 
         // Change animation states
-        if (InputManager.Instance.GetPlayerMovement() == Vector2.zero && !InputManager.Instance.PlayerJumpedThisFrame())
+        if (InputManager.Instance.PlayerShootedThisFrame())
+            UpdatePlayerStateServerRpc(PlayerState.Attack);
+        if (InputManager.Instance.GetPlayerMovement() == Vector2.zero)
             UpdatePlayerStateServerRpc(PlayerState.Idle);
-        if (InputManager.Instance.GetPlayerMovement() != Vector2.zero && !InputManager.Instance.PlayerJumpedThisFrame())
+        else if (InputManager.Instance.GetPlayerMovement() != Vector2.zero && !InputManager.Instance.PlayerJumpedThisFrame())
             UpdatePlayerStateServerRpc(PlayerState.Walk);
-        if (InputManager.Instance.GetPlayerMovement().y < 0 && !InputManager.Instance.PlayerJumpedThisFrame())
+        else if (InputManager.Instance.GetPlayerMovement().y < 0 && !InputManager.Instance.PlayerJumpedThisFrame())
             UpdatePlayerStateServerRpc(PlayerState.WalkBack);
 
         // Let server know about position and rotation client changes
