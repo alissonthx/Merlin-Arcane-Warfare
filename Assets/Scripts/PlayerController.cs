@@ -120,7 +120,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             UpdatePlayerStateServerRpc(PlayerState.Jump);
         }
-        
+
         if (InputManager.Instance.PlayerShootedThisFrame())
         {
             UpdatePlayerStateServerRpc(PlayerState.Attack);
@@ -130,11 +130,11 @@ public class PlayerController : NetworkBehaviour, IDamageable
         characterController.Move(playerVelocity * Time.deltaTime);
 
         // Change animation states
-        if (InputManager.Instance.GetPlayerMovement() == Vector2.zero && !InputManager.Instance.PlayerJumpedThisFrame())
+        if (InputManager.Instance.GetPlayerMovement() == Vector2.zero)
             UpdatePlayerStateServerRpc(PlayerState.Idle);
-        if (InputManager.Instance.GetPlayerMovement() != Vector2.zero && !InputManager.Instance.PlayerJumpedThisFrame())
+        if (InputManager.Instance.GetPlayerMovement() != Vector2.zero && isGrounded)
             UpdatePlayerStateServerRpc(PlayerState.Walk);
-        if (InputManager.Instance.GetPlayerMovement().y < 0 && !InputManager.Instance.PlayerJumpedThisFrame())
+        if (InputManager.Instance.GetPlayerMovement().y < 0 && isGrounded)
             UpdatePlayerStateServerRpc(PlayerState.WalkBack);
 
         // Let server know about position and rotation client changes
