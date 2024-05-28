@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 4426486503858394154}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.999, z: -0}
+  m_LocalPosition: {x: 0, y: -1, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -564,7 +564,7 @@ Transform:
   m_GameObject: {fileID: 9203453254291209279}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -611,7 +611,7 @@ MonoBehaviour:
   gravityValue: -19.81
   health: 100
   currentHealth: 0
-  defaultInitialPositionOnPlane: {x: -4, y: 4}
+  defaultInitialPositionOnPlane: {x: -8, y: 8}
   networkPositionDirection:
     m_InternalValue: {x: 0, y: 0, z: 0}
   networkRotationDirection:
@@ -621,6 +621,7 @@ MonoBehaviour:
   hiddenPartBody:
   - {fileID: 2087348880250198987}
   fullBody: {fileID: 996101504370977956}
+  vfxDie: {fileID: 6201002075518961516, guid: 423beb29a9af7e343b447a882c2bdf88, type: 3}
 --- !u!114 &5937736611191043107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,12 +659,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.9
-  m_Radius: 0.55
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: -0.4, z: 0}
+  m_Center: {x: 0, y: -0.49, z: -0.24}
 --- !u!114 &-1781587368608610012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,12 +725,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 70e86ce22d208224d8c16d27761277c0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 70e86ce22d208224d8c16d27761277c0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.4
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 70e86ce22d208224d8c16d27761277c0,
         type: 3}

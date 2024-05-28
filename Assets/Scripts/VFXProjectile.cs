@@ -23,7 +23,7 @@ public class VFXProjectile : NetworkBehaviour
         if (damageable != null)
         {
             print("Deal Damage");
-            float weaponDamage = 100f;
+            float weaponDamage = 25f;
             damageable.Damage(weaponDamage);
 
             Destroy(gameObject);

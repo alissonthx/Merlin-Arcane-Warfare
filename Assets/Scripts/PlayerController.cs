@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerController : NetworkBehaviour, IDamageable
 {
     public static event EventHandler OnPlayerJoined;
-    [SerializeField] private float playerSpeed = 5.5f;
+    [SerializeField] private float playerSpeed = 2.5f;
     [SerializeField] private float rotateSpeed = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -19.81f;
@@ -23,6 +23,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField] private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
     [SerializeField] private GameObject[] hiddenPartBody;
     [SerializeField] private GameObject fullBody;
+    [SerializeField] private GameObject vfxDie;
 
     private CharacterController characterController;
 
@@ -33,6 +34,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private Animator animator;
     private Transform cameraTransform;
+    private NetworkObject vfxDieNetworkObject;
     private bool isGrounded;
     private Vector3 playerVelocity;
 
@@ -41,12 +43,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         cameraTransform = Camera.main.GetComponent<Transform>();
+
+        vfxDieNetworkObject = vfxDie.GetComponent<NetworkObject>();
     }
 
     private void Start()
     {
-        currentHealth = health;
+        // Player temporarily disabled
+        fullBody.SetActive(false);
+        playerSpeed = 0f;
 
+        StartCoroutine(Respawn(4f, 1f));
         GameManager.Instance.StartRound();
 
         if (IsClient && IsOwner)
@@ -59,8 +66,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
                 bodyParts.SetActive(false);
             }
 
-            transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
-                   UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y));
         }
     }
 
@@ -169,16 +174,41 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     public void Die()
     {
+        // Player temporarily disabled
         fullBody.SetActive(false);
-        if (IsServer && IsSpawned)
-            StartCoroutine(Respawn(4f));
+        playerSpeed = 0f;
+
+        // Spawn die VFX
+        GameObject vfxDieGO = Instantiate(vfxDie, transform.position, Quaternion.identity);
+        DeSpawnDieSFX(vfxDieGO, vfxDieNetworkObject, 1f);
+
+        // Screen black and White
+        PostProcessingEffects.Instance.DieScreen();
+
+        // Coroutine to respawn the player and turn on again controllers        
+        StartCoroutine(Respawn(4f, 2f));
     }
 
-    private IEnumerator Respawn(float time)
+    private IEnumerator DeSpawnDieSFX(GameObject vfxDieGO, NetworkObject networkObjectToDespawn, float delay)
     {
+        yield return new WaitForSeconds(delay);
+        Destroy(vfxDieGO);
+        if (networkObjectToDespawn.IsSpawned)
+            networkObjectToDespawn.Despawn();
+    }
+
+    private IEnumerator Respawn(float time, float respawnRange)
+    {
+        currentHealth = health;
         yield return new WaitForSeconds(time);
         fullBody.SetActive(true);
-        transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
-                   UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y));
+        playerSpeed = 2.5f;
+
+        // Reset Screen effects
+        PostProcessingEffects.Instance.ResetScreen();
+
+        //Random respawn position
+        transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x * respawnRange, defaultInitialPositionOnPlane.y * respawnRange), 0,
+                   UnityEngine.Random.Range(defaultInitialPositionOnPlane.x * respawnRange, defaultInitialPositionOnPlane.y * respawnRange));
     }
 }
