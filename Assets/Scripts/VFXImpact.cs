@@ -17,8 +17,4 @@ public class VFXImpact : NetworkBehaviour
             impactNetworkObject.Spawn();
         }
     }
-
-    private void OnDisable(){
-        
-    }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -13,14 +14,15 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField] private float health = 100f;
     [SerializeField] private float currentHealth;
 
-    [SerializeField] private Vector2 defaultInitialPositionOnPlane = new Vector2(-4, 4);
+    [SerializeField] private Vector2 defaultInitialPositionOnPlane = new Vector2(-8, 8);
 
     [SerializeField] private NetworkVariable<Vector3> networkPositionDirection = new NetworkVariable<Vector3>();
 
     [SerializeField] private NetworkVariable<Vector3> networkRotationDirection = new NetworkVariable<Vector3>();
 
     [SerializeField] private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
-    [SerializeField] private GameObject bodyGO;
+    [SerializeField] private GameObject[] hiddenPartBody;
+    [SerializeField] private GameObject fullBody;
 
     private CharacterController characterController;
 
@@ -52,7 +54,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
             OnPlayerJoined?.Invoke(this, EventArgs.Empty);
 
             // disable body in fps view
-            bodyGO.SetActive(false);
+            foreach (GameObject bodyParts in hiddenPartBody)
+            {
+                bodyParts.SetActive(false);
+            }
 
             transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
                    UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y));
@@ -164,9 +169,16 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     public void Die()
     {
-        print("I'm fucking dying");
-        gameObject.SetActive(false);
+        fullBody.SetActive(false);
         if (IsServer && IsSpawned)
-            GetComponent<NetworkObject>().Despawn();
+            StartCoroutine(Respawn(4f));
+    }
+
+    private IEnumerator Respawn(float time)
+    {
+        yield return new WaitForSeconds(time);
+        fullBody.SetActive(true);
+        transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
+                   UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y));
     }
 }
