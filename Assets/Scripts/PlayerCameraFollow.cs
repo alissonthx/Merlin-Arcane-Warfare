@@ -14,12 +14,12 @@ public class PlayerCameraFollow : NetworkBehaviour
 
     private void OnEnable()
     {
-        GameManager.OnGameInitialize += OnGameInitialize_SetCameraFollowTarget;
+        GameManager.OnGameStartRound += OnGameInitialize_SetCameraFollowTarget;
     }
 
     private void OnDisable()
     {
-        GameManager.OnGameInitialize -= OnGameInitialize_SetCameraFollowTarget;
+        GameManager.OnGameStartRound -= OnGameInitialize_SetCameraFollowTarget;
     }
 
     private void OnGameInitialize_SetCameraFollowTarget(object sender, EventArgs e)

@@ -11,7 +11,7 @@ public class PostProcessingEffects : MonoBehaviour
         Instance = this;
     }
 
-    public void DieScreen()
+    public void BlackWhiteScreen()
     {
         GetComponent<PostProcessVolume>().profile.TryGetSettings(out colorGradingLayer);
         colorGradingLayer.saturation.value = -100f;

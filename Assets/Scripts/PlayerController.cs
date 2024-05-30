@@ -26,12 +26,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField] private GameObject vfxDie;
 
     private CharacterController characterController;
-
     // Client caches positions
     private Vector3 oldInputPosition = Vector3.zero;
     private Vector3 oldInputRotation = Vector3.zero;
     private PlayerState oldPlayerState = PlayerState.Idle;
-
     private Animator animator;
     private Transform cameraTransform;
     private NetworkObject vfxDieNetworkObject;
@@ -43,7 +41,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         cameraTransform = Camera.main.GetComponent<Transform>();
-
         vfxDieNetworkObject = vfxDie.GetComponent<NetworkObject>();
     }
 
@@ -51,10 +48,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         // Player temporarily disabled
         fullBody.SetActive(false);
-        playerSpeed = 0f;
+        playerSpeed = 0f;        
 
         StartCoroutine(Respawn(4f, 1f));
-        GameManager.Instance.StartRound();
 
         if (IsClient && IsOwner)
         {
@@ -65,7 +61,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
             {
                 bodyParts.SetActive(false);
             }
-
         }
     }
 
@@ -183,7 +178,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         DeSpawnDieSFX(vfxDieGO, vfxDieNetworkObject, 1f);
 
         // Screen black and White
-        PostProcessingEffects.Instance.DieScreen();
+        PostProcessingEffects.Instance.BlackWhiteScreen();
 
         // Coroutine to respawn the player and turn on again controllers        
         StartCoroutine(Respawn(4f, 2f));
@@ -203,9 +198,11 @@ public class PlayerController : NetworkBehaviour, IDamageable
         yield return new WaitForSeconds(time);
         fullBody.SetActive(true);
         playerSpeed = 2.5f;
+        GameManager.Instance.StartRound();
 
         // Reset Screen effects
         PostProcessingEffects.Instance.ResetScreen();
+        UIManager.Instance.StartRoundUI();
 
         //Random respawn position
         transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x * respawnRange, defaultInitialPositionOnPlane.y * respawnRange), 0,

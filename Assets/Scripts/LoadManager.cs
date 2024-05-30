@@ -1,18 +1,16 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadManager : MonoBehaviour
 {
-    public static LoadManager Instance;
+    public static LoadManager Instance { get; private set; }
     [SerializeField] private GameObject loadingScreen;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
-
-        loadingScreen.SetActive(false);
+        loadingScreen.SetActive(false);        
     }
 
     public void LoadScene(int indexScene)
@@ -23,7 +21,7 @@ public class LoadManager : MonoBehaviour
     private IEnumerator LoadSceneAsync(int indexScene)
     {
         loadingScreen.SetActive(true);
-    
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(indexScene);
 
         while (!operation.isDone)

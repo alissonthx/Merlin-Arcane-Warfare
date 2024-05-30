@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public static event EventHandler OnGameStartRound;
     public static event EventHandler OnGameInitialize;
     private ActualScene actualScene;
     public enum ActualScene
@@ -24,12 +25,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        OnGameInitialize?.Invoke(this, EventArgs.Empty);
         actualScene = ActualScene.mainMenu;
     }
 
     public void StartRound()
     {
-        OnGameInitialize?.Invoke(this, EventArgs.Empty);
+        OnGameStartRound?.Invoke(this, EventArgs.Empty);
         actualScene = ActualScene.Arena;
     }
 

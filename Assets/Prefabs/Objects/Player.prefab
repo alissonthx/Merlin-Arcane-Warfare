@@ -584,7 +584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2806564373
+  GlobalObjectIdHash: 233130892
   InScenePlacedSourceGlobalObjectIdHash: 233130892
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -637,7 +637,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2236179779622170474, guid: 89ec3e5ab32a9594da4f5ae345e18a25,
     type: 3}
   firePoint: {fileID: 9027513628103216640}
-  projectileSpeed: 9
+  projectileSpeed: 14
   fireRate: 2
 --- !u!143 &2167719462135787051
 CharacterController:

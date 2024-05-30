@@ -5,10 +5,18 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+    [Space]
+    [Header("MainMenu")]
     [SerializeField] private Canvas mainUI;
     [SerializeField] private Canvas createLobbyUI;
     [SerializeField] private Canvas lobbyUI;
     [SerializeField] private Canvas joinLobbyUI;
+    [Space]
+    [Header("Arena")]
+    [SerializeField] private GameObject aimImage;
+    [SerializeField] private Canvas loadingUI;
+
     [Header("Main Buttons")]
     [SerializeField] private Button createMainButton;
     [SerializeField] private Button joinButton;
@@ -19,37 +27,51 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         InitializeUI();
 
-        createMainButton.onClick.AddListener(() =>
+        if (createMainButton != null)
         {
-            createLobbyUI.gameObject.SetActive(true);
-            mainUI.gameObject.SetActive(false);
-        });
-        createButton.onClick.AddListener(() =>
-        {
-            LoadManager.Instance.LoadScene(1);
-            GameManager.Instance.StartRound();
-        });
+            createMainButton.onClick.AddListener(() =>
+            {
+                ShowUI(createLobbyUI);
+                HideUI(mainUI);
+            });
+        }
 
-        joinButton.onClick.AddListener(() =>
+        if (createButton != null)
         {
-            lobbyUI.gameObject.SetActive(true);
-            mainUI.gameObject.SetActive(false);
-        });
+            createButton.onClick.AddListener(() =>
+            {
+                LoadManager.Instance.LoadScene(1);
+            });
+        }
 
-        okButton.onClick.AddListener(() =>
+        if (joinButton != null)
         {
-            joinLobbyUI.gameObject.SetActive(false);
-            LoadManager.Instance.LoadScene(1);
-            GameManager.Instance.StartRound();
-        });
+            joinButton.onClick.AddListener(() =>
+            {
+                ShowUI(lobbyUI);
+                HideUI(mainUI);
+            });
+        }
+
+        if (okButton != null)
+        {
+            okButton.onClick.AddListener(() =>
+            {
+                HideUI(joinLobbyUI);
+                LoadManager.Instance.LoadScene(1);
+            });
+        }
     }
 
     private void OnEnable()
     {
         ActualLobby.OnLobbyClick += UIManager_OnLobbyClick;
     }
+
     private void OnDisable()
     {
         ActualLobby.OnLobbyClick -= UIManager_OnLobbyClick;
@@ -57,22 +79,45 @@ public class UIManager : MonoBehaviour
 
     private void UIManager_OnLobbyClick(object sender, EventArgs e)
     {
-        joinLobbyUI.gameObject.SetActive(true);
-        lobbyUI.gameObject.SetActive(false);
+        if (joinLobbyUI != null && lobbyUI != null)
+        {
+            ShowUI(joinLobbyUI);
+            HideUI(lobbyUI);
+        }
     }
 
     public void BackUI()
     {
-        lobbyUI.gameObject.SetActive(false);
-        createLobbyUI.gameObject.SetActive(false);
-        mainUI.gameObject.SetActive(true);
+        if (lobbyUI != null) HideUI(lobbyUI);
+        if (createLobbyUI != null) HideUI(createLobbyUI);
+        if (mainUI != null) ShowUI(mainUI);
     }
 
     private void InitializeUI()
     {
-        mainUI.gameObject.SetActive(true);
-        createLobbyUI.gameObject.SetActive(false);
-        lobbyUI.gameObject.SetActive(false);
-        joinLobbyUI.gameObject.SetActive(false);
+        // Main menu
+        if (mainUI != null) ShowUI(mainUI);
+        if (createLobbyUI != null) HideUI(createLobbyUI);
+        if (lobbyUI != null) HideUI(lobbyUI);
+        if (joinLobbyUI != null) HideUI(joinLobbyUI);
+
+        // Arena
+        if (aimImage != null) aimImage.SetActive(false);
+        if (PostProcessingEffects.Instance != null) PostProcessingEffects.Instance.BlackWhiteScreen();
+    }
+
+    public void StartRoundUI()
+    {
+        print("start round UI");
+        if (aimImage != null) aimImage.SetActive(true);
+    }
+
+    private void HideUI(Canvas canvas)
+    {
+        canvas.gameObject.SetActive(false);
+    }
+    private void ShowUI(Canvas canvas)
+    {
+        canvas.gameObject.SetActive(true);
     }
 }
