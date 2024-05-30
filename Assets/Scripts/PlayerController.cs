@@ -48,7 +48,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         // Player temporarily disabled
         fullBody.SetActive(false);
-        playerSpeed = 0f;        
+        playerSpeed = 0f;  
+        PostProcessingEffects.Instance.BlackWhiteScreen();      
 
         StartCoroutine(Respawn(4f, 1f));
 

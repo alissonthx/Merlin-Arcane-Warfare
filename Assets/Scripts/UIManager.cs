@@ -108,7 +108,6 @@ public class UIManager : MonoBehaviour
 
     public void StartRoundUI()
     {
-        print("start round UI");
         if (aimImage != null) aimImage.SetActive(true);
     }
 

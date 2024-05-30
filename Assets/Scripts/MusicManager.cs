@@ -6,10 +6,13 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioClip[] musicsClip;
     private AudioSource audioSource;
 
-    private void OnEnable()
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+    }
 
+    private void OnEnable()
+    {
         GameManager.OnGameInitialize += MusicManager_OnGameInitialize;
         GameManager.OnGameStartRound += MusicManager_OnGameStartRound;
     }
