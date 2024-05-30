@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -6,31 +7,32 @@ using UnityEngine;
 public class PlayerController : NetworkBehaviour, IDamageable
 {
     public static event EventHandler OnPlayerJoined;
-    [SerializeField] private float playerSpeed = 5.5f;
+    [SerializeField] private float playerSpeed = 2.5f;
     [SerializeField] private float rotateSpeed = 0.2f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -19.81f;
     [SerializeField] private float health = 100f;
     [SerializeField] private float currentHealth;
 
-    [SerializeField] private Vector2 defaultInitialPositionOnPlane = new Vector2(-4, 4);
+    [SerializeField] private Vector2 defaultInitialPositionOnPlane = new Vector2(-8, 8);
 
     [SerializeField] private NetworkVariable<Vector3> networkPositionDirection = new NetworkVariable<Vector3>();
 
     [SerializeField] private NetworkVariable<Vector3> networkRotationDirection = new NetworkVariable<Vector3>();
 
     [SerializeField] private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
-    [SerializeField] private GameObject bodyGO;
+    [SerializeField] private GameObject[] hiddenPartBody;
+    [SerializeField] private GameObject fullBody;
+    [SerializeField] private GameObject vfxDie;
 
     private CharacterController characterController;
-
     // Client caches positions
     private Vector3 oldInputPosition = Vector3.zero;
     private Vector3 oldInputRotation = Vector3.zero;
     private PlayerState oldPlayerState = PlayerState.Idle;
-
     private Animator animator;
     private Transform cameraTransform;
+    private NetworkObject vfxDieNetworkObject;
     private bool isGrounded;
     private Vector3 playerVelocity;
 
@@ -39,23 +41,26 @@ public class PlayerController : NetworkBehaviour, IDamageable
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         cameraTransform = Camera.main.GetComponent<Transform>();
+        vfxDieNetworkObject = vfxDie.GetComponent<NetworkObject>();
     }
 
     private void Start()
     {
-        currentHealth = health;
-
-        GameManager.Instance.StartRound();
+        // Player temporarily disabled
+        fullBody.SetActive(false);
+        playerSpeed = 0f;  
+        
+        StartCoroutine(Respawn(4f, 1f));
 
         if (IsClient && IsOwner)
         {
             OnPlayerJoined?.Invoke(this, EventArgs.Empty);
 
-            // disable body in fps view
-            bodyGO.SetActive(false);
-
-            transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y), 0,
-                   UnityEngine.Random.Range(defaultInitialPositionOnPlane.x, defaultInitialPositionOnPlane.y));
+            // disable body parts in fps view
+            foreach (GameObject bodyParts in hiddenPartBody)
+            {
+                bodyParts.SetActive(false);
+            }
         }
     }
 
@@ -164,9 +169,43 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     public void Die()
     {
-        print("I'm fucking dying");
-        gameObject.SetActive(false);
-        if (IsServer && IsSpawned)
-            GetComponent<NetworkObject>().Despawn();
+        // Player temporarily disabled
+        fullBody.SetActive(false);
+        playerSpeed = 0f;
+
+        // Spawn die VFX
+        GameObject vfxDieGO = Instantiate(vfxDie, transform.position, Quaternion.identity);
+        DeSpawnDieSFX(vfxDieGO, vfxDieNetworkObject, 1f);
+
+        // Screen black and White
+        PostProcessingEffects.Instance.BlackWhiteScreen();
+
+        // Coroutine to respawn the player and turn on again controllers        
+        StartCoroutine(Respawn(4f, 2f));
+    }
+
+    private IEnumerator DeSpawnDieSFX(GameObject vfxDieGO, NetworkObject networkObjectToDespawn, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(vfxDieGO);
+        if (networkObjectToDespawn.IsSpawned)
+            networkObjectToDespawn.Despawn();
+    }
+
+    private IEnumerator Respawn(float time, float respawnRange)
+    {
+        currentHealth = health;
+        yield return new WaitForSeconds(time);
+        fullBody.SetActive(true);
+        playerSpeed = 2.5f;
+        GameManager.Instance.StartRound();
+
+        // Reset Screen effects
+        PostProcessingEffects.Instance.ResetScreen();
+        UIManager.Instance.StartRoundUI();
+
+        //Random respawn position
+        transform.position = new Vector3(UnityEngine.Random.Range(defaultInitialPositionOnPlane.x * respawnRange, defaultInitialPositionOnPlane.y * respawnRange), 0,
+                   UnityEngine.Random.Range(defaultInitialPositionOnPlane.x * respawnRange, defaultInitialPositionOnPlane.y * respawnRange));
     }
 }

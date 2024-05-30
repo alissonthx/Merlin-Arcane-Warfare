@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MusicManager : MonoBehaviour
@@ -10,11 +11,31 @@ public class MusicManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        if (GameManager.Instance.GetActualScene() == GameManager.ActualScene.mainMenu)
+        GameManager.OnGameInitialize += MusicManager_OnGameInitialize;
+        GameManager.OnGameStartRound += MusicManager_OnGameStartRound;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameInitialize -= MusicManager_OnGameInitialize;
+        GameManager.OnGameStartRound -= MusicManager_OnGameStartRound;
+    }
+
+    private void MusicManager_OnGameInitialize(object sender, EventArgs e)
+    {
+        if (GameManager.ActualScene.mainMenu == GameManager.Instance.GetActualScene())
+        {
             audioSource.clip = musicsClip[0];
-        else if (GameManager.Instance.GetActualScene() == GameManager.ActualScene.Arena)
-            audioSource.clip = musicsClip[1];
+            audioSource.Play();
+        }
+    }
+
+    private void MusicManager_OnGameStartRound(object sender, EventArgs e)
+    {
+        print("music 2");
+        audioSource.clip = musicsClip[1];
+        audioSource.Play();
     }
 }

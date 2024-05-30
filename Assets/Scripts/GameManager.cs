@@ -4,11 +4,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public static event EventHandler OnGameStartRound;
     public static event EventHandler OnGameInitialize;
+    public static event EventHandler OnGameWaiting;
     private ActualScene actualScene;
     public enum ActualScene
     {
         mainMenu,
+        Waiting,
         Arena,
     }
 
@@ -23,13 +26,24 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+    }
+    
+    public void MainMenu()
+    {
+        print("main menu");
+        OnGameInitialize?.Invoke(this, EventArgs.Empty);
         actualScene = ActualScene.mainMenu;
+    }
+
+    public void WaitingRound()
+    {
+        OnGameWaiting?.Invoke(this, EventArgs.Empty);
+        actualScene = ActualScene.Waiting;
     }
 
     public void StartRound()
     {
-        OnGameInitialize?.Invoke(this, EventArgs.Empty);
+        OnGameStartRound?.Invoke(this, EventArgs.Empty);
         actualScene = ActualScene.Arena;
     }
 
