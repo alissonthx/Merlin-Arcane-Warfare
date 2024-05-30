@@ -25,9 +25,11 @@ public class MusicManager : MonoBehaviour
 
     private void MusicManager_OnGameInitialize(object sender, EventArgs e)
     {
-        print("music 1");
-        audioSource.clip = musicsClip[0];
-        audioSource.Play();
+        if (GameManager.ActualScene.mainMenu == GameManager.Instance.GetActualScene())
+        {
+            audioSource.clip = musicsClip[0];
+            audioSource.Play();
+        }
     }
 
     private void MusicManager_OnGameStartRound(object sender, EventArgs e)

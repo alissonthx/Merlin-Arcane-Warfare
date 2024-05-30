@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public enum ActualScene
     {
         mainMenu,
+        Waiting,
         Arena,
     }
 
@@ -26,7 +27,16 @@ public class GameManager : MonoBehaviour
         }
 
         OnGameInitialize?.Invoke(this, EventArgs.Empty);
+    }
+    
+    public void MainMenu()
+    {
         actualScene = ActualScene.mainMenu;
+    }
+
+    public void WaitingRound()
+    {
+        actualScene = ActualScene.Waiting;
     }
 
     public void StartRound()
