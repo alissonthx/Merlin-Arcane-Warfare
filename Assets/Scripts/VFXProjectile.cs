@@ -17,12 +17,10 @@ public class VFXProjectile : NetworkBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        Debug.Log("Collides with something");
         // Checks if the actual gameobject has interface to deal damage
         IDamageable damageable = col.gameObject.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            print("Deal Damage");
             float weaponDamage = 25f;
             damageable.Damage(weaponDamage);
 
