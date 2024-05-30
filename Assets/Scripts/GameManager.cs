@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     
     public void MainMenu()
     {
-        print("main menu");
         OnGameInitialize?.Invoke(this, EventArgs.Empty);
         actualScene = ActualScene.mainMenu;
     }
