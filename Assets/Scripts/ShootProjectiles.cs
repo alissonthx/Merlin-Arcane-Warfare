@@ -6,7 +6,7 @@ public class ShootProjectiles : NetworkBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float projectileSpeed = 15f;
-    [SerializeField]private float fireRate = 4f;
+    [SerializeField] private float fireRate = 4f;
     private InputManager inputManager;
     private Camera cam;
     private float timeToFire;
@@ -31,6 +31,9 @@ public class ShootProjectiles : NetworkBehaviour
 
     private void ShootProjectile()
     {
+        // Play impact sound at the collision point
+        SFXManager.Instance.PlayRandomProjectileSFX(transform.position);
+
         // Create a ray from the center of the screen 
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;

@@ -17,6 +17,9 @@ public class VFXProjectile : NetworkBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
+        // Play impact sound at the collision point
+        SFXManager.Instance.PlayRandomImpactSFX(col.contacts[0].point);
+        
         // Checks if the actual gameobject has interface to deal damage
         IDamageable damageable = col.gameObject.GetComponent<IDamageable>();
         if (damageable != null)
@@ -29,7 +32,7 @@ public class VFXProjectile : NetworkBehaviour
 
             // Instantiate impact on point of collision
             var impact = Instantiate(vfxImpact, col.contacts[0].point, Quaternion.identity) as GameObject;
-           
+
             Destroy(impact, 1);
             StartCoroutine(DeSpawnBullets(impactNetworkObject, 1f));
         }
@@ -40,7 +43,7 @@ public class VFXProjectile : NetworkBehaviour
 
             // Instantiate impact on point of collision
             var impact = Instantiate(vfxImpact, col.contacts[0].point, Quaternion.identity) as GameObject;
-            
+
             Destroy(impact, 1);
             StartCoroutine(DeSpawnBullets(impactNetworkObject, 1f));
         }
