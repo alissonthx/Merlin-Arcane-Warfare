@@ -49,16 +49,14 @@ public class PlayerController : NetworkBehaviour, IDamageable
         // Player temporarily disabled
         fullBody.SetActive(false);
         playerSpeed = 0f;  
-        PostProcessingEffects.Instance.BlackWhiteScreen();  
-        GameManager.Instance.WaitingRound();
-
+        
         StartCoroutine(Respawn(4f, 1f));
 
         if (IsClient && IsOwner)
         {
             OnPlayerJoined?.Invoke(this, EventArgs.Empty);
 
-            // disable body in fps view
+            // disable body parts in fps view
             foreach (GameObject bodyParts in hiddenPartBody)
             {
                 bodyParts.SetActive(false);

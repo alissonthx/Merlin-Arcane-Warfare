@@ -23,6 +23,7 @@ public class LoadManager : MonoBehaviour
         loadingScreen.SetActive(true);
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(indexScene);
+        GameManager.Instance.WaitingRound();
 
         while (!operation.isDone)
         {

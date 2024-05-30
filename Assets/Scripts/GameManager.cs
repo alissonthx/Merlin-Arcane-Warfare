@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public static event EventHandler OnGameStartRound;
     public static event EventHandler OnGameInitialize;
+    public static event EventHandler OnGameWaiting;
     private ActualScene actualScene;
     public enum ActualScene
     {
@@ -26,16 +27,18 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        OnGameInitialize?.Invoke(this, EventArgs.Empty);
     }
     
     public void MainMenu()
     {
+        print("main menu");
+        OnGameInitialize?.Invoke(this, EventArgs.Empty);
         actualScene = ActualScene.mainMenu;
     }
 
     public void WaitingRound()
     {
+        OnGameWaiting?.Invoke(this, EventArgs.Empty);
         actualScene = ActualScene.Waiting;
     }
 
