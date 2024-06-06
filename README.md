@@ -1,3 +1,4 @@
-# Prototype Mage FPS Game
+# Merlin: Arcane Warfare
+Multiplayer Mage FPS Game
 
-<img src="./Assets/Gifs/MageGame.gif">
+<img src="./Assets/img/merlin.png">
