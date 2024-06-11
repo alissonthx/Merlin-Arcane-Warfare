@@ -56,7 +56,7 @@ public class ShootProjectiles : NetworkBehaviour
         projectileGO.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
 
         // Spawn the projectile over the network
-        if (IsServer)
+        if (IsServer && IsOwner)
         {
             projectileGO.GetComponent<NetworkObject>().Spawn();
         }

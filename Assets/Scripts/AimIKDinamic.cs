@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class AimIK : MonoBehaviour
+public class AimIKDinamic : MonoBehaviour
 {
     private Camera cam;
     [SerializeField] private float distanceForward = 10f;
 
-    void Start()
+    private void Start()
     {
         cam = Camera.main;
     }
 
-    void Update()
+    private void Update()
     {
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         Vector3 worldPosition = ray.GetPoint(distanceForward);
