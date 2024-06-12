@@ -6,53 +6,81 @@ using UnityEngine;
 public class VFXProjectile : NetworkBehaviour
 {
     [SerializeField] private GameObject vfxImpact;
-    private NetworkObject networkObject;
+    private GameObject collidedObject;
     private NetworkObject impactNetworkObject;
 
     private void Awake()
     {
-        networkObject = GetComponent<NetworkObject>();
-        impactNetworkObject = vfxImpact.GetComponent<NetworkObject>();
+        impactNetworkObject = GetComponent<NetworkObject>();
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnCollisionEnter(Collision collision)
     {
+        if (!IsSpawned)
+        {
+            return;
+        }
+
+        // projectile's position
+        var explodePoint = transform.position;
+        if (collision.contacts.Length > 0)
+        {
+            explodePoint = collision.contacts[0].point;
+            collidedObject = collision.gameObject;
+        }
+        HandleExplosion(explodePoint);
+    }
+
+
+    private void HandleExplosion(Vector3 explodePoint)
+    {
+        var instance = Instantiate(vfxImpact);
+
+        // position the explosion
+        instance.transform.position = explodePoint;
+
+        // Spawn the explosion
+        // impactNetworkObject.Spawn();
+
         // Play impact sound at the collision point
-        SFXManager.Instance.PlayRandomImpactSFX(col.contacts[0].point);
-        
+        SFXManager.Instance.PlayRandomImpactSFX(explodePoint);
+
         // Checks if the actual gameobject has interface to deal damage
-        IDamageable damageable = col.gameObject.GetComponent<IDamageable>();
+        IDamageable damageable = collidedObject.gameObject.GetComponent<IDamageable>();
         if (damageable != null)
         {
             float weaponDamage = 25f;
             damageable.Damage(weaponDamage);
 
             Destroy(gameObject);
-            StartCoroutine(DeSpawnBullets(networkObject, 0.1f));
+            StartCoroutine(DeSpawnBullets(impactNetworkObject, 0.1f));
 
-            // Instantiate impact on point of collision
-            var impact = Instantiate(vfxImpact, col.contacts[0].point, Quaternion.identity) as GameObject;
-
-            Destroy(impact, 1);
+            Destroy(instance, 0.5f);
             StartCoroutine(DeSpawnBullets(impactNetworkObject, 1f));
         }
         else
         {
             Destroy(gameObject);
-            StartCoroutine(DeSpawnBullets(networkObject, 0.1f));
+            StartCoroutine(DeSpawnBullets(impactNetworkObject, 0.1f));
 
-            // Instantiate impact on point of collision
-            var impact = Instantiate(vfxImpact, col.contacts[0].point, Quaternion.identity) as GameObject;
-
-            Destroy(impact, 1);
+            Destroy(instance, 0.5f);
             StartCoroutine(DeSpawnBullets(impactNetworkObject, 1f));
         }
     }
 
+    // public override void OnNetworkDespawn()
+    // {
+    //     if (m_SpawnedExplosion)
+    //     {
+    //         m_SpawnedExplosion.SetParticlePlayingState(true);
+    //     }
+    //     base.OnNetworkDespawn();
+    // }
+
     private IEnumerator DeSpawnBullets(NetworkObject networkObjectToDespawn, float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (IsServer && networkObjectToDespawn.IsSpawned)
+        if (networkObjectToDespawn.IsSpawned)
             networkObjectToDespawn.Despawn();
     }
 }
