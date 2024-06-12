@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class VFXProjectile : NetworkBehaviour
+public class VFXProjectile : MonoBehaviour
 {
     [SerializeField] private GameObject vfxImpact;
     private GameObject collidedObject;
@@ -16,11 +15,6 @@ public class VFXProjectile : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!IsSpawned)
-        {
-            return;
-        }
-
         // projectile's position
         var explodePoint = transform.position;
         if (collision.contacts.Length > 0)
@@ -40,7 +34,8 @@ public class VFXProjectile : NetworkBehaviour
         instance.transform.position = explodePoint;
 
         // Spawn the explosion
-        // impactNetworkObject.Spawn();
+        if (!impactNetworkObject.IsSpawned)
+            impactNetworkObject.Spawn();
 
         // Play impact sound at the collision point
         SFXManager.Instance.PlayRandomImpactSFX(explodePoint);

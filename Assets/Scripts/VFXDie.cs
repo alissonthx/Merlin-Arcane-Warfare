@@ -12,9 +12,24 @@ public class VFXDie : NetworkBehaviour
 
     private void OnEnable()
     {
+        if (!IsOwner)
+        {
+            return;
+        }
+
         if (IsServer)
         {
             dieExplosionNetworkObject.Spawn();
         }
+        else
+        {
+            DieExplosionServerRpc();
+        }
+    }
+
+    [ServerRpc]
+    private void DieExplosionServerRpc()
+    {
+        dieExplosionNetworkObject.Spawn();
     }
 }

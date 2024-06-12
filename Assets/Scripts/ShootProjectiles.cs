@@ -5,11 +5,11 @@ public class ShootProjectiles : NetworkBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float projectileSpeed = 15f;
     [SerializeField] private float fireRate = 4f;
+    [SerializeField] private float projectileSpeed = 15f;
     private InputManager inputManager;
-    private Camera cam;
     private float timeToFire;
+    private Camera cam;
 
     private void Start()
     {
@@ -57,29 +57,37 @@ public class ShootProjectiles : NetworkBehaviour
     {
         var projectileGO = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
         var instanceNetworkObject = projectileGO.GetComponent<NetworkObject>();
-        projectileGO.transform.forward = transform.forward;
         instanceNetworkObject.Spawn();
 
         // Play impact sound at the collision point
         SFXManager.Instance.PlayRandomProjectileSFX(transform.position);
 
-        // Create a ray from the center of the screen 
-        Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        RaycastHit hit;
-        Vector3 targetPoint;
-
-        // Perform the raycast and check if it hits something
-        if (Physics.Raycast(ray, out hit))
+        if (IsOwner)
         {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.GetPoint(1000f); // Arbitrary large distance            
+            // Create a ray from the center of the screen 
+            Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            RaycastHit hit;
+            Vector3 targetPoint;
+
+            // Perform the raycast and check if it hits something
+            if (Physics.Raycast(ray, out hit))
+            {
+                targetPoint = hit.point;
+            }
+            else
+            {
+                targetPoint = ray.GetPoint(1000f); // Arbitrary large distance            
+            }
+
+            Vector3 direction = (targetPoint - firePoint.position).normalized;
+            projectileGO.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
         }
 
-        Vector3 direction = (targetPoint - firePoint.position).normalized;
+        Debug.DrawLine(transform.position, new Vector3(Screen.width / 2, Screen.height / 2, 0));
+    }
 
-        projectileGO.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
+    public Transform GetFirePoint()
+    {
+        return firePoint;
     }
 }
