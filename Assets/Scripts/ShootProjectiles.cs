@@ -31,6 +31,35 @@ public class ShootProjectiles : NetworkBehaviour
 
     private void ShootProjectile()
     {
+        if (!IsOwner)
+        {
+            return;
+        }
+
+        if (IsServer)
+        {
+            OnFireWeapon();
+        }
+        else
+        {
+            OnFireWeaponServerRpc();
+        }
+    }
+
+    [ServerRpc]
+    private void OnFireWeaponServerRpc()
+    {
+        OnFireWeapon();
+    }
+
+
+    private void OnFireWeapon()
+    {
+        var projectileGO = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        var instanceNetworkObject = projectileGO.GetComponent<NetworkObject>();
+        projectileGO.transform.forward = transform.forward;
+        instanceNetworkObject.Spawn();
+
         // Play impact sound at the collision point
         SFXManager.Instance.PlayRandomProjectileSFX(transform.position);
 
@@ -38,8 +67,6 @@ public class ShootProjectiles : NetworkBehaviour
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;
         Vector3 targetPoint;
-        // Instantiate the bullet
-        GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
         // Perform the raycast and check if it hits something
         if (Physics.Raycast(ray, out hit))
@@ -51,14 +78,8 @@ public class ShootProjectiles : NetworkBehaviour
             targetPoint = ray.GetPoint(1000f); // Arbitrary large distance            
         }
 
-        // Calculate direction towards the target point
         Vector3 direction = (targetPoint - firePoint.position).normalized;
-        projectileGO.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
 
-        // Spawn the projectile over the network
-        if (IsServer && IsOwner)
-        {
-            projectileGO.GetComponent<NetworkObject>().Spawn();
-        }
+        projectileGO.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
     }
 }

@@ -175,16 +175,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
         // Spawn die VFX
         GameObject vfxDieGO = Instantiate(vfxDie, transform.position, Quaternion.identity);
-        DeSpawnDieSFX(vfxDieGO, vfxDieNetworkObject, 1f);
+        DeSpawnDieVFX(vfxDieGO, vfxDieNetworkObject, 1f);
 
         // Screen black and White
-        PostProcessingEffects.Instance.BlackWhiteScreen();
+        if (IsOwner)
+            PostProcessingEffects.Instance.BlackWhiteScreen();
 
         // Coroutine to respawn the player and turn on again controllers        
         StartCoroutine(Respawn(4f, 2f));
     }
 
-    private IEnumerator DeSpawnDieSFX(GameObject vfxDieGO, NetworkObject networkObjectToDespawn, float delay)
+    private IEnumerator DeSpawnDieVFX(GameObject vfxDieGO, NetworkObject networkObjectToDespawn, float delay)
     {
         yield return new WaitForSeconds(delay);
         Destroy(vfxDieGO);
