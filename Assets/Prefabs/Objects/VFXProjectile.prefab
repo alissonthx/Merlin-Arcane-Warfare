@@ -4985,6 +4985,7 @@ GameObject:
   - component: {fileID: -938372986468207749}
   - component: {fileID: 3765761419843603099}
   - component: {fileID: 3263951928386072790}
+  - component: {fileID: 4007169031622430766}
   m_Layer: 0
   m_Name: VFXProjectile
   m_TagString: Bullet
@@ -5028,7 +5029,7 @@ MonoBehaviour:
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 1
-  SpawnWithObservers: 0
+  SpawnWithObservers: 1
   DontDestroyWithOwner: 1
   AutoObjectParentSync: 1
 --- !u!114 &2854900388195230378
@@ -5126,6 +5127,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4007169031622430766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2236179779622170474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6625706690443658080
 GameObject:
   m_ObjectHideFlags: 0
