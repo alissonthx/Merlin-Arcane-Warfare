@@ -2,15 +2,22 @@ using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class VFXProjectile : MonoBehaviour
+public class VFXProjectile : NetworkBehaviour
 {
     [SerializeField] private GameObject vfxImpact;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float projectileSpeed = 15f;
     private GameObject collidedObject;
+    private NetworkObject networkObject;
     private NetworkObject impactNetworkObject;
+    private Camera cam;
 
     private void Awake()
     {
-        impactNetworkObject = GetComponent<NetworkObject>();
+        networkObject = GetComponent<NetworkObject>();
+        impactNetworkObject = vfxImpact.GetComponent<NetworkObject>();
+
+        cam = Camera.main;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -28,14 +35,16 @@ public class VFXProjectile : MonoBehaviour
 
     private void HandleExplosion(Vector3 explodePoint)
     {
-        var instance = Instantiate(vfxImpact);
+        // Instantiate and spawn the explosion effect
+        var impact = Instantiate(vfxImpact);
+        impact.GetComponent<NetworkObject>().Spawn();
 
-        // position the explosion
-        instance.transform.position = explodePoint;
+        // position the explosion effect
+        impact.transform.position = explodePoint;
 
-        // Spawn the explosion
-        if (!impactNetworkObject.IsSpawned)
-            impactNetworkObject.Spawn();
+        // Spawn the bullet if is not spawned yet
+        if (!networkObject.IsSpawned)
+            networkObject.Spawn();
 
         // Play impact sound at the collision point
         SFXManager.Instance.PlayRandomImpactSFX(explodePoint);
@@ -48,18 +57,18 @@ public class VFXProjectile : MonoBehaviour
             damageable.Damage(weaponDamage);
 
             Destroy(gameObject);
-            StartCoroutine(DeSpawnBullets(impactNetworkObject, 0.1f));
+            StartCoroutine(DeSpawnBullets(networkObject, 0.1f));
 
-            Destroy(instance, 0.5f);
-            StartCoroutine(DeSpawnBullets(impactNetworkObject, 1f));
+            Destroy(impact, 1f);
+            StartCoroutine(DeSpawnBullets(impactNetworkObject, 0.5f));
         }
         else
         {
             Destroy(gameObject);
-            StartCoroutine(DeSpawnBullets(impactNetworkObject, 0.1f));
+            StartCoroutine(DeSpawnBullets(networkObject, 0.1f));
 
-            Destroy(instance, 0.5f);
-            StartCoroutine(DeSpawnBullets(impactNetworkObject, 1f));
+            Destroy(impact, 1f);
+            StartCoroutine(DeSpawnBullets(impactNetworkObject, 0.5f));
         }
     }
 
@@ -71,6 +80,29 @@ public class VFXProjectile : MonoBehaviour
     //     }
     //     base.OnNetworkDespawn();
     // }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner) return;
+
+        // Create a ray from the center of the screen 
+        Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        RaycastHit hit;
+        Vector3 targetPoint;
+
+        // Perform the raycast and check if it hits something
+        if (Physics.Raycast(ray, out hit))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            targetPoint = ray.GetPoint(1000f); // Arbitrary large distance            
+        }
+
+        Vector3 direction = (targetPoint - ShootProjectiles.Instance.GetFirePoint().position).normalized;
+        GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
+    }
 
     private IEnumerator DeSpawnBullets(NetworkObject networkObjectToDespawn, float delay)
     {

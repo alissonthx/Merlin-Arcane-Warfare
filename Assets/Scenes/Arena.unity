@@ -707,6 +707,111 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!1001 &345897920
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 554340313}
+    m_Modifications:
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5507691753502972766, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      propertyPath: m_Name
+      value: AimIKDinamic
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5507691753502972766, guid: abd896b6d246b56459753d3c329230c2,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 345897922}
+  m_SourcePrefab: {fileID: 100100000, guid: abd896b6d246b56459753d3c329230c2, type: 3}
+--- !u!1 &345897921 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5507691753502972766, guid: abd896b6d246b56459753d3c329230c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 345897920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &345897922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345897921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2631054870
+  InScenePlacedSourceGlobalObjectIdHash: 233130892
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!4 &345897923 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1632567202883910849, guid: abd896b6d246b56459753d3c329230c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 345897920}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &345973045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1086,6 +1191,7 @@ Transform:
   - {fileID: 1818902211}
   - {fileID: 2042488891}
   - {fileID: 887133151}
+  - {fileID: 345897923}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &660755263 stripped
